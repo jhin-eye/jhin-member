@@ -22,16 +22,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class WebClientService {
     private final WebClient webClient;
-    @Value("${kakao.client-id}")
-    private String clientId;
-    @Value("${kakao.client-secret}")
-    private String clientSecret;
-    @Value("${kakao.redirect-uri}")
-    private String redirectUri;
 
-
-
-    public Mono<KakaoTokenResDTO> requestKakaoToken(String authorizationCode){
+    public Mono<KakaoTokenResDTO> requestKakaoToken(String authorizationCode, String clientId, String clientSecret, String redirectUri){
 
         //application/x-www-form-urlencoded 컨텐츠 타입으로 요청을 보내려면, 요청 본문(body)을 URL 인코딩된 형식으로 직접 작성
         MultiValueMap<String,String> formData = new LinkedMultiValueMap<>();
