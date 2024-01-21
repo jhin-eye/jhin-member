@@ -26,9 +26,6 @@ public class KakaoUser {
 
             @JsonProperty("thumbnail_image_url")
             private String thumbnailImageUrl;
-
-            private String email;
-
         }
 
     }
