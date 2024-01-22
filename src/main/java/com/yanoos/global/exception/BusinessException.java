@@ -6,6 +6,6 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @RequiredArgsConstructor
-public class ApiException extends RuntimeException{
+public class BusinessException extends RuntimeException{
     private final ErrorCode errorCode;
 }

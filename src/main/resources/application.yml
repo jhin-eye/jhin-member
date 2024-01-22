@@ -27,6 +27,7 @@ spring:
       max-file-size: 100MB  # ?? ?? ??? 100MB? ?????.
       max-request-size: 100MB  # ?? ?? ??? 100MB? ?????.
 kakao:
+  host-name: KAKAO
   client-id: 6bb73a683ffd93e3ebf9512656e9267c
   client-secret: eIGeH8BixyT9jpc08KrhVms2jjH6nQBI
   redirect-uri: http://localhost:8765/kakao/callback

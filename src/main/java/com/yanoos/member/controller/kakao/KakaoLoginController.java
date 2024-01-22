@@ -2,6 +2,7 @@ package com.yanoos.member.controller.kakao;
 
 
 import com.yanoos.member.controller.dto.KakaoUser;
+import com.yanoos.member.controller.dto.MyJwtDTO;
 import com.yanoos.member.service.KakaoLoginService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -28,7 +29,9 @@ public class KakaoLoginController {
     //인가코드 받아서 카카오토큰 요청 -> 카카오토큰으로 유저 정보 가져오기
     @GetMapping("/callback")
     @ResponseBody
-    public KakaoUser getUserInfoByReceivedAuthorizationCode(@RequestParam Map<String,String> params){
-        return kakaoLoginService.getUserInfoByReceivedAuthorizationCode(params);
+    public MyJwtDTO getUserInfoByReceivedAuthorizationCode(@RequestParam Map<String,String> params){
+        MyJwtDTO userInfoByReceivedAuthorizationCode = kakaoLoginService.getUserInfoByReceivedAuthorizationCode(params);
+        log.info("123");
+        return userInfoByReceivedAuthorizationCode;
     }
 }

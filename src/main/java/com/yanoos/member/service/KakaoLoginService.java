@@ -1,8 +1,12 @@
 package com.yanoos.member.service;
 
+import com.yanoos.global.exception.BusinessException;
+import com.yanoos.global.exception.code.KakaoErrorCode;
 import com.yanoos.global.util.WebClientService;
 import com.yanoos.global.util.dto.KakaoTokenResDTO;
 import com.yanoos.member.controller.dto.KakaoUser;
+import com.yanoos.member.controller.dto.MyJwtDTO;
+import com.yanoos.member.entity.KakaoMember;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,12 +15,16 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 
 import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
+
 @Slf4j
 @Transactional(readOnly = true)
 @Service
 @RequiredArgsConstructor
 public class KakaoLoginService {
     private final WebClientService webClientService;
+    private final KakaoMemberService kakaoMemberService;
 
     @Value("${kakao.client-id}")
     private String KAKAO_API_KEY;
@@ -29,7 +37,9 @@ public class KakaoLoginService {
         model.addAttribute("redirectUri", REDIRECT_URI);
     }
 
-    public KakaoUser getUserInfoByReceivedAuthorizationCode(Map<String, String> params) {
+
+    @Transactional
+    public MyJwtDTO getUserInfoByReceivedAuthorizationCode(Map<String, String> params) {
         String authorizationCode =  params.get("code");
         log.info("authorizationCode = {}", authorizationCode);
 
@@ -41,6 +51,19 @@ public class KakaoLoginService {
         String kakaoAccessToken = kakaoTokenResDTO.getAccess_token();
         KakaoUser kakaoUser = webClientService.requestKakaoUserInfo(kakaoAccessToken).block();
         log.info("kakao user = {}",kakaoUser);
-        return kakaoUser;
+
+        //TODO: 기존회원이 아니라면 가입 로직 처리
+        //기존회원인지 판단
+        KakaoMember kakaoMember = getKakaoMember(kakaoUser);
+        log.info("kakao user result = {}", kakaoMember);
+        return MyJwtDTO.builder().accessToken(kakaoMember.toString()).build();
+    }
+
+    private KakaoMember getKakaoMember(KakaoUser kakaoUser) {
+        String kakaoId = Objects.requireNonNull(kakaoUser).getId();
+
+        Optional<KakaoMember> kakaoMemberOptional = kakaoMemberService.findByKakaoUserId(kakaoId);
+        return kakaoMemberOptional.orElseGet(() -> kakaoMemberService.joinKakaoMember(kakaoUser));
+
     }
 }

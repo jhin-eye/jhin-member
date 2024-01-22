@@ -19,14 +19,15 @@ import java.util.stream.Collectors;
 @Slf4j
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler{
     //========== 에러 코드있고, 코드에 메세지 포함되어 있는 경우 시작 ==========
-    @ExceptionHandler(ApiException.class)
-    public ResponseEntity<Object> handleCustomException(ApiException e) {
+    @ExceptionHandler(BusinessException.class)
+    public ResponseEntity<Object> handleCustomException(BusinessException e) {
         ErrorCode errorCode = e.getErrorCode();
         return handleExceptionInternal(errorCode);
     }
     @ExceptionHandler({Exception.class})
     public ResponseEntity<Object> handleAllException(Exception e) {
-        log.warn("handleAllException", e);
+        log.error("UNKNOWN_ERROR");
+        e.printStackTrace();
         ErrorCode errorCode = CommonErrorCode.INTERNAL_SERVER_ERROR;
         return handleExceptionInternal(errorCode);
     }
