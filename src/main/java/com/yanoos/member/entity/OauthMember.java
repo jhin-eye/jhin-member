@@ -1,12 +1,14 @@
 package com.yanoos.member.entity;
 
 import jakarta.persistence.*;
+import lombok.Getter;
 import lombok.experimental.SuperBuilder;
 
 @Entity
 @Table(name = "oauth_user")
 @SuperBuilder
 @Inheritance(strategy = InheritanceType.JOINED)
+@Getter
 public class OauthMember {
     protected OauthMember(){}
     @Id

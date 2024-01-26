@@ -31,7 +31,7 @@ public class KakaoLoginController {
     @ResponseBody
     public MyJwtDTO getUserInfoByReceivedAuthorizationCode(@RequestParam Map<String,String> params){
         MyJwtDTO userInfoByReceivedAuthorizationCode = kakaoLoginService.getUserInfoByReceivedAuthorizationCode(params);
-        log.info("123");
+        log.info("getUserInfoByReceivedAuthorizationCode success");
         return userInfoByReceivedAuthorizationCode;
     }
 }

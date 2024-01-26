@@ -1,12 +1,12 @@
 package com.yanoos.member.service;
 
-import com.yanoos.global.exception.BusinessException;
-import com.yanoos.global.exception.code.KakaoErrorCode;
+import com.yanoos.global.jwt.JwtTokenProvider;
 import com.yanoos.global.util.WebClientService;
 import com.yanoos.global.util.dto.KakaoTokenResDTO;
 import com.yanoos.member.controller.dto.KakaoUser;
 import com.yanoos.member.controller.dto.MyJwtDTO;
 import com.yanoos.member.entity.KakaoMember;
+import com.yanoos.member.entity.Member;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,16 +25,16 @@ import java.util.Optional;
 public class KakaoLoginService {
     private final WebClientService webClientService;
     private final KakaoMemberService kakaoMemberService;
-
+    private final JwtTokenProvider jwtTokenProvider;
     @Value("${kakao.client-id}")
     private String KAKAO_API_KEY;
     @Value("${kakao.redirect-uri}")
-    private String REDIRECT_URI;
+    private String KAKAO_REDIRECT_URI;
     @Value("${kakao.client-secret}")
-    private String CLIENT_SECRET;
+    private String KAKAO_CLIENT_SECRET;
     public void setUrlEnvironment(Model model){
         model.addAttribute("clientId", KAKAO_API_KEY);
-        model.addAttribute("redirectUri", REDIRECT_URI);
+        model.addAttribute("redirectUri", KAKAO_REDIRECT_URI);
     }
 
 
@@ -44,7 +44,7 @@ public class KakaoLoginService {
         log.info("authorizationCode = {}", authorizationCode);
 
         //카카오 토큰 요청
-        KakaoTokenResDTO kakaoTokenResDTO = webClientService.requestKakaoToken(authorizationCode,KAKAO_API_KEY,CLIENT_SECRET,REDIRECT_URI).block();
+        KakaoTokenResDTO kakaoTokenResDTO = webClientService.requestKakaoToken(authorizationCode,KAKAO_API_KEY, KAKAO_CLIENT_SECRET, KAKAO_REDIRECT_URI).block();
         log.info("tokenDTO = {}",kakaoTokenResDTO);
 
         //카카오 토큰으로 유저정보 가져오기
@@ -55,8 +55,12 @@ public class KakaoLoginService {
         //TODO: 기존회원이 아니라면 가입 로직 처리
         //기존회원인지 판단
         KakaoMember kakaoMember = getKakaoMember(kakaoUser);
-        log.info("kakao user result = {}", kakaoMember);
-        return MyJwtDTO.builder().accessToken(kakaoMember.toString()).build();
+        log.info("kakao member result = {}", kakaoMember);
+        //todo: jwt화
+        Member member = kakaoMember.getMember();
+        String accessToken = jwtTokenProvider.generateAccessToken(member.getMemberId());
+
+        return MyJwtDTO.builder().accessToken(accessToken).build();
     }
 
     private KakaoMember getKakaoMember(KakaoUser kakaoUser) {
