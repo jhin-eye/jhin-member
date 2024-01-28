@@ -22,7 +22,11 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler{
     @ExceptionHandler(BusinessException.class)
     public ResponseEntity<Object> handleCustomException(BusinessException e) {
         ErrorCode errorCode = e.getErrorCode();
-        return handleExceptionInternal(errorCode);
+        if(e.getEditedMessage() == null) {
+            return handleExceptionInternal(errorCode);
+        }
+
+        return handleExceptionInternal(errorCode, e.getEditedMessage());
     }
     @ExceptionHandler({Exception.class})
     public ResponseEntity<Object> handleAllException(Exception e) {

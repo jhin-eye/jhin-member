@@ -12,7 +12,7 @@ public enum CommonErrorCode implements ErrorCode{
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "Internal server error"),
     TOKEN_EXPIRED(HttpStatus.UNAUTHORIZED, "토큰이 만료되었습니다."),
     NOT_VALID_TOKEN(HttpStatus.UNAUTHORIZED, "해당 토큰은 유효한 토큰이 아닙니다."),
-    INVALID_TOKEN_TYPE(HttpStatus.BAD_REQUEST, "유효한 토큰 타입이 아닙니다(ACCESS, REFRESH 확인)."),
+    INVALID_TOKEN_TYPE(HttpStatus.BAD_REQUEST, "유효한 토큰 타입이 아닙니다(ACCESS, REFRESH 확인). 필요한 토큰 타입: {0}"),
     ;
     private final HttpStatus httpStatus;
     private final String message;

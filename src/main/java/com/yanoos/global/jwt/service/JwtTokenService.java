@@ -56,15 +56,16 @@ public class JwtTokenService {
 
 
     //=========================토큰 검증 관련 시작=========================
-    public boolean validateToken(String token,TokenType tokenType) {
+    public boolean validateToken(String token,TokenType needTokenType) {
         log.info("validate in");
         try {
             log.info("get claims start");
             Jws<Claims> claims = getClaims(token);
             log.info("check token type start");
-            if(!claims.getBody().getSubject().equals(tokenType.name())){
+            String currentTokenType = claims.getBody().getSubject();
+            if(!currentTokenType.equals(needTokenType.name())){
                 log.info("잘못된 토큰타입 입니다");
-                throw new BusinessException(CommonErrorCode.INVALID_TOKEN_TYPE);
+                throw new BusinessException(CommonErrorCode.INVALID_TOKEN_TYPE,needTokenType);
             }
             return !isTokenExpired(claims.getBody());
         }catch (ExpiredJwtException e){
