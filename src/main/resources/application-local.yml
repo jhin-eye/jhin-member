@@ -28,7 +28,9 @@ kakao:
   host-name: KAKAO
   client-id: 6bb73a683ffd93e3ebf9512656e9267c
   client-secret: eIGeH8BixyT9jpc08KrhVms2jjH6nQBI
-  redirect-uri: http://localhost:8765/kakao/callback
+  redirect-uri: http://localhost:8765/api/kakao/callback
 
 jwt:
   secret-key: tempsecretkeytempsecretkeytempsecretkeytempsecretkeytempsecretkeytempsecretkeytempsecretkeytempsecretkeytempsecretkeytempsecretkeytempsecretkeytempsecretkeytempsecretkeytempsecretkeytempsecretkeytempsecretkeytempsecretkey
+  access-token-expiration-time: 900000 #60*15*1000
+  refresh-token-expiration-time: 259200000 #60*60*24*3*1000

@@ -39,9 +39,10 @@ public class TestController {
     public ResponseEntity<ValidTestOutDTO> validTest(@RequestBody @Valid ValidTestInDTO validTestInDTO){
         return ResponseEntity.ok(ValidTestOutDTO.builder().p1("11").build());
     }
-    @GetMapping("/user/info")
+    @GetMapping("/api/user/info")
     @ResponseBody
     public Long validJwt(){
+        log.info("validJwt in");
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication != null && authentication.isAuthenticated()) {
             CustomPrincipal principal = (CustomPrincipal) authentication.getPrincipal();

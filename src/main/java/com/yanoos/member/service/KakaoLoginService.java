@@ -1,10 +1,10 @@
 package com.yanoos.member.service;
 
-import com.yanoos.global.jwt.JwtTokenProvider;
+import com.yanoos.global.jwt.service.JwtTokenService;
 import com.yanoos.global.util.WebClientService;
 import com.yanoos.global.util.dto.KakaoTokenResDTO;
 import com.yanoos.member.controller.dto.KakaoUser;
-import com.yanoos.member.controller.dto.MyJwtDTO;
+import com.yanoos.global.jwt.dto.MyJwtDTO;
 import com.yanoos.member.entity.KakaoMember;
 import com.yanoos.member.entity.Member;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +25,7 @@ import java.util.Optional;
 public class KakaoLoginService {
     private final WebClientService webClientService;
     private final KakaoMemberService kakaoMemberService;
-    private final JwtTokenProvider jwtTokenProvider;
+    private final JwtTokenService jwtTokenService;
     @Value("${kakao.client-id}")
     private String KAKAO_API_KEY;
     @Value("${kakao.redirect-uri}")
@@ -58,9 +58,14 @@ public class KakaoLoginService {
         log.info("kakao member result = {}", kakaoMember);
         //todo: jwt화
         Member member = kakaoMember.getMember();
-        String accessToken = jwtTokenProvider.generateAccessToken(member.getMemberId());
+        Long memberId = member.getMemberId();
+        String accessToken = jwtTokenService.generateAccessToken(memberId);
+        String refreshToken = jwtTokenService.generateRefreshToken(memberId);
 
-        return MyJwtDTO.builder().accessToken(accessToken).build();
+        return MyJwtDTO.builder()
+                .accessToken(accessToken)
+                .refreshToken(refreshToken)
+                .build();
     }
 
     private KakaoMember getKakaoMember(KakaoUser kakaoUser) {

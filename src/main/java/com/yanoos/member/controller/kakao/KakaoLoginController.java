@@ -1,8 +1,7 @@
 package com.yanoos.member.controller.kakao;
 
 
-import com.yanoos.member.controller.dto.KakaoUser;
-import com.yanoos.member.controller.dto.MyJwtDTO;
+import com.yanoos.global.jwt.dto.MyJwtDTO;
 import com.yanoos.member.service.KakaoLoginService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,7 +14,7 @@ import java.util.Map;
 @Controller
 @RequiredArgsConstructor
 @Slf4j
-@RequestMapping("/kakao")
+@RequestMapping("/api/kakao")
 public class KakaoLoginController {
     private final KakaoLoginService kakaoLoginService;
 
