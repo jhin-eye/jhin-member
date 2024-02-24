@@ -1,10 +1,8 @@
 package com.yanoos.member.service;
 
-import com.yanoos.global.exception.BusinessException;
-import com.yanoos.global.exception.code.KakaoErrorCode;
 import com.yanoos.member.controller.dto.KakaoUser;
 import com.yanoos.member.entity.KakaoMember;
-import com.yanoos.member.entity.Member;
+import com.yanoos.global.entity.Member;
 import com.yanoos.member.repository.KakaoMemberRepository;
 import com.yanoos.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;

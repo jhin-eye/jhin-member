@@ -6,7 +6,7 @@ import com.yanoos.global.util.dto.KakaoTokenResDTO;
 import com.yanoos.member.controller.dto.KakaoUser;
 import com.yanoos.global.jwt.dto.MyJwtDTO;
 import com.yanoos.member.entity.KakaoMember;
-import com.yanoos.member.entity.Member;
+import com.yanoos.global.entity.Member;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;

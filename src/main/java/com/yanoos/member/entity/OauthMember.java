@@ -1,5 +1,6 @@
 package com.yanoos.member.entity;
 
+import com.yanoos.global.entity.Member;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.experimental.SuperBuilder;

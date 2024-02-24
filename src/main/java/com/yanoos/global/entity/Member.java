@@ -1,5 +1,6 @@
-package com.yanoos.member.entity;
+package com.yanoos.global.entity;
 
+import com.yanoos.member.entity.OauthMember;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
