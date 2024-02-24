@@ -27,6 +27,10 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
 
     @Override//컨트롤러 로직을 수행하기 전에 수행되는 부분
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        if(isExcludedMethod(request)){
+            log.info("인증 인터셉터 생략하는 요청임");
+            return true;
+        }
         log.info("인증 인터셉터 시작");
         String jwt = jwtTokenService.getJwtFromRequest(request);
         log.info("jwt = {}",jwt);
@@ -48,6 +52,13 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
             return true;
         }
         return false;
+    }
+
+    private boolean isExcludedMethod(HttpServletRequest request) {
+        log.info("인증 인터셉터 제외되는 요청인지 확인");
+        String uri = request.getRequestURI();
+        String method = request.getMethod();
+        return uri.matches("/test(/.*)?") && method.equalsIgnoreCase("POST");
     }
 
 

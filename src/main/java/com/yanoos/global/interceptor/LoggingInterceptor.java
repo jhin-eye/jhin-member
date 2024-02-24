@@ -17,7 +17,7 @@ public class LoggingInterceptor implements HandlerInterceptor {
         if(queryString!=null){
             wholeRequestURI += "?" + queryString;
         }
-        log.info("Request URI = {}",wholeRequestURI);
+        log.info("Request URI = {}, method = {}",wholeRequestURI, request.getMethod());
         return true;
     }
 }

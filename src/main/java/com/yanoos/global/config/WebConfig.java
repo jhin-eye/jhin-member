@@ -22,7 +22,7 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addInterceptor(authenticationInterceptor)
                 .order(2)
                 .addPathPatterns("/api/**",
-                        "/test/api/**")
+                        "/test/**")
                 .excludePathPatterns("/api/kakao/**",
                         "/api/token/by/refresh");
 
