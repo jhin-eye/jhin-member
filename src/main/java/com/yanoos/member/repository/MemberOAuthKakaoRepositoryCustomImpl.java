@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 @RequiredArgsConstructor
-public class KakaoMemberRepositoryCustomImpl implements KakaoMemberRepositoryCustom{
+public class MemberOAuthKakaoRepositoryCustomImpl implements MemberOAuthKakaoRepositoryCustom{
     private final JPAQueryFactory jpaQueryFactory;
 
 }
