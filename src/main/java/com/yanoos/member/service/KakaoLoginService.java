@@ -5,8 +5,8 @@ import com.yanoos.global.util.WebClientService;
 import com.yanoos.global.util.dto.KakaoTokenResDTO;
 import com.yanoos.member.controller.dto.KakaoUser;
 import com.yanoos.global.jwt.dto.MyJwtDTO;
-import com.yanoos.member.entity.KakaoMember;
-import com.yanoos.global.entity.Member;
+import com.yanoos.member.entity.Member;
+import com.yanoos.member.entity.MemberOAuthKakao;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -54,10 +54,10 @@ public class KakaoLoginService {
 
         //TODO: 기존회원이 아니라면 가입 로직 처리
         //기존회원인지 판단
-        KakaoMember kakaoMember = getKakaoMember(kakaoUser);
-        log.info("kakao member result = {}", kakaoMember);
+        MemberOAuthKakao memberOAuthKakao = getKakaoMember(kakaoUser);
+        log.info("kakao member result = {}", memberOAuthKakao);
         //todo: jwt화
-        Member member = kakaoMember.getMember();
+        Member member = memberOAuthKakao.getMemberOAuth().getMember();
         Long memberId = member.getMemberId();
         String accessToken = jwtTokenService.generateAccessToken(memberId);
         String refreshToken = jwtTokenService.generateRefreshToken(memberId);
@@ -68,11 +68,11 @@ public class KakaoLoginService {
                 .build();
     }
 
-    private KakaoMember getKakaoMember(KakaoUser kakaoUser) {
+    private MemberOAuthKakao getKakaoMember(KakaoUser kakaoUser) {
         String kakaoId = Objects.requireNonNull(kakaoUser).getId();
 
-        Optional<KakaoMember> kakaoMemberOptional = kakaoMemberService.findByKakaoUserId(kakaoId);
-        return kakaoMemberOptional.orElseGet(() -> kakaoMemberService.joinKakaoMember(kakaoUser));
+        Optional<MemberOAuthKakao> byKakaoUserId = kakaoMemberService.findByKakaoUserId(kakaoId);
+        return byKakaoUserId.orElseGet(() -> kakaoMemberService.joinKakaoMember(kakaoUser));
 
     }
 }

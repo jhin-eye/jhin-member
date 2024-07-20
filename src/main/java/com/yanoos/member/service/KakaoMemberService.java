@@ -1,9 +1,11 @@
 package com.yanoos.member.service;
 
 import com.yanoos.member.controller.dto.KakaoUser;
-import com.yanoos.member.entity.KakaoMember;
-import com.yanoos.global.entity.Member;
-import com.yanoos.member.repository.KakaoMemberRepository;
+import com.yanoos.member.entity.Member;
+import com.yanoos.member.entity.MemberOAuth;
+import com.yanoos.member.entity.MemberOAuthKakao;
+import com.yanoos.member.repository.MemberOAuthKakaoRepository;
+import com.yanoos.member.repository.MemberOAuthRepository;
 import com.yanoos.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,14 +22,15 @@ import java.util.Optional;
 public class KakaoMemberService {
     @Value("${kakao.host-name}")
     private String KAKAO_HOST_NAME;
-    private final KakaoMemberRepository kakaoMemberRepository;
+    private final MemberOAuthKakaoRepository memberOAuthKakaoRepository;
+    private final MemberOAuthRepository memberOAuthRepository;
     private final MemberRepository memberRepository;
-    public Optional<KakaoMember> findByKakaoUserId(String kakaoUserId) {
-        return kakaoMemberRepository.findByKakaoId(kakaoUserId);
+    public Optional<MemberOAuthKakao> findByKakaoUserId(String kakaoUserId) {
+        return memberOAuthKakaoRepository.findByKakaoId(kakaoUserId);
     }
 
     @Transactional
-    public KakaoMember joinKakaoMember(KakaoUser kakaoUser) {
+    public MemberOAuthKakao joinKakaoMember(KakaoUser kakaoUser) {
         String kakaoUserNickname = kakaoUser.getKakaoAccount().getProfile().getNickname();
         String kakaoUserEmail = kakaoUser.getKakaoAccount().getEmail();
 
@@ -37,13 +40,18 @@ public class KakaoMemberService {
                 .build();
         memberRepository.save(member);
 
-        return kakaoMemberRepository.save(
-                KakaoMember.builder()
+        MemberOAuth memberOAuth = MemberOAuth.builder()
+                .member(member)
+                .oauthHost(KAKAO_HOST_NAME)
+                .build();
+        memberOAuthRepository.save(memberOAuth);
+
+        return memberOAuthKakaoRepository.save(
+                MemberOAuthKakao.builder()
                         .kakaoId(kakaoUser.getId())
                         .kakaoNickname(kakaoUserNickname)
                         .kakaoEmail(kakaoUserEmail)
-                        .oauthHost(KAKAO_HOST_NAME)
-                        .member(member)
+                        .memberOAuth(memberOAuth)
                         .build()
         );
     }
