@@ -1,4 +1,4 @@
-package com.yanoos.member.repository;
+package com.yanoos.member.repository.memberOAuthKakao;
 
 
 import com.querydsl.jpa.impl.JPAQueryFactory;

@@ -1,4 +1,4 @@
-package com.yanoos.member.repository;
+package com.yanoos.member.repository.memberOAuthKakao;
 
 import com.yanoos.member.entity.MemberOAuthKakao;
 import org.springframework.data.jpa.repository.JpaRepository;

@@ -7,7 +7,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@Builder
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -28,5 +28,12 @@ public class MapMemberKeyword {
     @JoinColumn(name = "keyword_id", nullable = false)
     private Keyword keyword;
 
-    // Getter, Setter
+    // 빌더 패턴을 사용하여 인스턴스를 생성할 때 id를 설정하는 메서드
+    @Builder
+    public MapMemberKeyword (Member member, Keyword keyword) {
+        this.id = new MapMemberKeywordId(member.getMemberId(), keyword.getKeywordId());
+        this.member = member;
+        this.keyword = keyword;
+
+    }
 }
