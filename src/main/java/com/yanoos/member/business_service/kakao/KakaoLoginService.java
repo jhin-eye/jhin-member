@@ -1,4 +1,4 @@
-package com.yanoos.member.service;
+package com.yanoos.member.business_service.kakao;
 
 import com.yanoos.global.jwt.service.JwtTokenService;
 import com.yanoos.global.util.WebClientService;

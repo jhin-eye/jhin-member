@@ -1,12 +1,12 @@
-package com.yanoos.member.service;
+package com.yanoos.member.business_service.kakao;
 
 import com.yanoos.member.controller.dto.KakaoUser;
 import com.yanoos.member.entity.Member;
 import com.yanoos.member.entity.MemberOAuth;
 import com.yanoos.member.entity.MemberOAuthKakao;
-import com.yanoos.member.repository.MemberOAuthKakaoRepository;
-import com.yanoos.member.repository.MemberOAuthRepository;
-import com.yanoos.member.repository.MemberRepository;
+import com.yanoos.member.repository.memberOAuthKakao.MemberOAuthKakaoRepository;
+import com.yanoos.member.repository.member_OAuth.MemberOAuthRepository;
+import com.yanoos.member.repository.member.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;

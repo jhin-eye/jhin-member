@@ -2,7 +2,7 @@ package com.yanoos.member.controller.kakao;
 
 
 import com.yanoos.global.jwt.dto.MyJwtDTO;
-import com.yanoos.member.service.KakaoLoginService;
+import com.yanoos.member.business_service.kakao.KakaoLoginService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
