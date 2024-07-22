@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Kakao Callback</title>
+    <script type="text/javascript">
+        function setCookie(name, value, days) {
+            var expires = "";
+            if (days) {
+                var date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                expires = "; expires=" + date.toUTCString();
+            }
+            document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+        }
+
+        window.onload = function() {
+            // Spring에서 전달된 accessToken과 refreshToken을 가져옴
+            var accessToken = /*[[${accessToken}]]*/ 'defaultAccessToken';
+            var refreshToken = /*[[${refreshToken}]]*/ 'defaultRefreshToken';
+
+            // accessToken과 refreshToken을 쿠키에 저장
+            setCookie("accessToken", accessToken, 7);  // 7일 동안 유효한 쿠키
+            setCookie("refreshToken", refreshToken, 7);  // 7일 동안 유효한 쿠키
+        }
+    </script>
+</head>
+<body>
+<h1>Kakao Login Successful</h1>
+<p>Access Token and Refresh Token have been saved in cookies.</p>
+</body>
+</html>

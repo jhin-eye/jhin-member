@@ -27,10 +27,13 @@ public class KakaoLoginController {
 
     //인가코드 받아서 카카오토큰 요청 -> 카카오토큰으로 유저 정보 가져오기
     @GetMapping("/callback")
-    @ResponseBody
-    public MyJwtDTO getUserInfoByReceivedAuthorizationCode(@RequestParam Map<String,String> params){
+    public String getUserInfoByReceivedAuthorizationCode(@RequestParam Map<String,String> params, Model model){
         MyJwtDTO userInfoByReceivedAuthorizationCode = kakaoLoginService.getUserInfoByReceivedAuthorizationCode(params);
         log.info("getUserInfoByReceivedAuthorizationCode success");
-        return userInfoByReceivedAuthorizationCode;
+        String accessToken = userInfoByReceivedAuthorizationCode.getAccessToken();
+        String refreshToken = userInfoByReceivedAuthorizationCode.getRefreshToken();
+        model.addAttribute("accessToken",accessToken);
+        model.addAttribute("refreshToken",refreshToken);
+        return "kakaoCallback";
     }
 }
