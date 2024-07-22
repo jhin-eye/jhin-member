@@ -23,7 +23,9 @@ public class WebConfig implements WebMvcConfigurer {
                 .order(2)
                 .addPathPatterns("/api/**",
                         "/test/**")
-                .excludePathPatterns("/api/kakao/**",
+                .excludePathPatterns(
+                        "/api/kakao/**",
+                        "/api/view/**",
                         "/api/token/by/refresh");
 
     }
