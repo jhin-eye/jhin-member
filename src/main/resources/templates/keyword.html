@@ -26,7 +26,7 @@
             event.preventDefault();
             var keyword = $('#keyword').val();
             $.ajax({
-                url: '/api/category',
+                url: '/api/keyword',
                 type: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify({ memberId: 1, name: keyword }), // memberId는 실제로는 동적으로 가져와야 함

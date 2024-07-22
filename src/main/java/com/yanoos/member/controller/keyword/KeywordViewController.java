@@ -29,7 +29,7 @@ public class KeywordViewController {
     @GetMapping
     public String getKeywords(Model model){
         List<String> mapMemberKeywords=keywordBusinessService.getKeywordsByMemberId(authUtil.getMemberId());
-        model.addAttribute(mapMemberKeywords);
+        model.addAttribute("keywords",mapMemberKeywords);
         return "keyword";
     }
 
