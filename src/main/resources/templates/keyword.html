@@ -16,7 +16,7 @@
 <h2>Registered Keywords</h2>
 <ul>
     <li th:each="keyword : ${keywords}">
-        <span th:text="${keyword.name}">Keyword Name</span>
+        <span th:text="${keyword}">Keyword Name</span>
     </li>
 </ul>
 
@@ -25,20 +25,25 @@
         $('#keywordForm').on('submit', function(event) {
             event.preventDefault();
             var keyword = $('#keyword').val();
-            $.ajax({
-                url: '/api/keyword',
-                type: 'POST',
-                contentType: 'application/json',
-                data: JSON.stringify({ memberId: 1, name: keyword }), // memberId는 실제로는 동적으로 가져와야 함
-                success: function(response) {
-                    alert('Keyword registered successfully');
-                    // 페이지를 새로 고침하여 키워드 목록 갱신
-                    location.reload();
-                },
-                error: function(error) {
-                    alert('Failed to register keyword');
-                }
-            });
+            authFetch('/api/keyword', {
+                method: 'POST',
+                body: JSON.stringify({memberId: 1, keyword: keyword})
+            })
+                .then(response => {
+                    if (response.ok) {
+                        return response.text();  // HTML 페이지를 문자열로 가져옴
+                    } else {
+                        console.error('Error:', response.statusText);
+                    }
+                })
+                .then(html => {
+                    if (html) {
+                        document.open();
+                        document.write(html);  // HTML 페이지를 현재 페이지에 작성
+                        document.close();
+                    }
+                })
+                .catch(error => console.error('Error:', error));
         });
     });
 </script>

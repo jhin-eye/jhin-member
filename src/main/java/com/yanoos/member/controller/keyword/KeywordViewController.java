@@ -35,10 +35,10 @@ public class KeywordViewController {
 
 
     @PostMapping()
-    public PostKeywordOut postKeyword(@RequestBody PostKeywordIn postKeywordIn) {
+    public String postKeyword(@RequestBody PostKeywordIn postKeywordIn) {
         validatePostKeywordIn(postKeywordIn);
         PostKeywordOut postKeywordOut = keywordBusinessService.postKeyword(postKeywordIn);
-        return postKeywordOut;
+        return "redirect:/api/view/keyword";
     }
 
     private void validatePostKeywordIn(PostKeywordIn postKeywordIn) {

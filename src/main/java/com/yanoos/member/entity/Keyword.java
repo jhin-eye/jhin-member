@@ -21,7 +21,7 @@ public class Keyword {
     @Column(name = "keyword_id")
     private Long keywordId;
 
-    @Column(name = "keyword", unique = true)
+    @Column(name = "keyword", unique = true, nullable = false)
     private String keyword;
 
     @OneToMany(mappedBy = "keyword", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
