@@ -1,11 +1,8 @@
 package com.yanoos.global.interceptor;
 
-import com.yanoos.global.exception.BusinessException;
-import com.yanoos.global.exception.code.CommonErrorCode;
 import com.yanoos.global.jwt.CustomPrincipal;
 import com.yanoos.global.jwt.TokenType;
 import com.yanoos.global.jwt.service.JwtTokenService;
-import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -32,26 +29,24 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
             return true;
         }
         log.info("인증 인터셉터 시작");
-        String jwt = jwtTokenService.getJwtFromRequest(request);
-        log.info("jwt = {}",jwt);
-        if(jwt != null && jwtTokenService.validateToken(jwt, TokenType.ACCESS)){//jwt 유효성 검증
-            Long memberId = jwtTokenService.getUserIdFromJwt(jwt);//jwt에서 사용자 id 추출
-            log.info("memberId = {}",memberId);
-            CustomPrincipal principal = new CustomPrincipal(); //사용자의 주요 정보와 권한
-            principal.setMemberId(memberId);
-            UsernamePasswordAuthenticationToken authentication  =
-                    new UsernamePasswordAuthenticationToken(principal, null,
-                            Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER")));//TODO 역할 구현
-            authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+        String jwt = jwtTokenService.getJwtFromRequest(request,TokenType.ACCESS);
+        jwtTokenService.validateToken(jwt, TokenType.ACCESS);
+        Long memberId = jwtTokenService.getUserIdFromJwt(jwt);//jwt에서 사용자 id 추출
+        log.info("memberId = {}",memberId);
+        CustomPrincipal principal = new CustomPrincipal(); //사용자의 주요 정보와 권한
+        principal.setMemberId(memberId);
+        UsernamePasswordAuthenticationToken authentication  =
+                new UsernamePasswordAuthenticationToken(principal, null,
+                        Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER")));//TODO 역할 구현
+        authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 
 
-            // 인증 세부 정보 설정
-            SecurityContextHolder.getContext().setAuthentication(authentication);
-            // SecurityContext에 인증 정보 저장
-            log.info("인증인터셉터성공");
-            return true;
-        }
-        return false;
+        // 인증 세부 정보 설정
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        // SecurityContext에 인증 정보 저장
+        log.info("인증인터셉터성공");
+        return true;
+
     }
 
     private boolean isExcludedMethod(HttpServletRequest request) {

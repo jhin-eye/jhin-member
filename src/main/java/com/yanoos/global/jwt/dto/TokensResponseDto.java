@@ -5,6 +5,7 @@ import lombok.experimental.SuperBuilder;
 
 @Data
 @SuperBuilder
-public class AccessTokenResponseDto {
+public class TokensResponseDto {
     private String accessToken;
+    private String refreshToken;
 }
