@@ -3,13 +3,14 @@ package com.yanoos.global.jwt.service;
 import com.yanoos.global.exception.BusinessException;
 import com.yanoos.global.exception.code.CommonErrorCode;
 import com.yanoos.global.jwt.TokenType;
-import com.yanoos.global.jwt.dto.AccessTokenResponseDto;
+import com.yanoos.global.jwt.dto.TokensResponseDto;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.SecretKey;
@@ -19,13 +20,12 @@ import java.util.Date;
 @Service
 public class JwtTokenService {
     @Value("${jwt.access-token-expiration-time}")
-    private long ACCESS_TOKEN_EXPIRATION_TIME;
+    private int ACCESS_TOKEN_EXPIRATION_TIME;
     @Value("${jwt.refresh-token-expiration-time}")
-    private long REFRESH_TOKEN_EXPIRATION_TIME ;
+    private int REFRESH_TOKEN_EXPIRATION_TIME ;
     @Value("${jwt.secret-key}")
     private String JWT_SECRET_KEY;
     public static final String AUTHORIZATION_HEADER = "Authorization";
-    public static final String BEARER_PREFIX = "Bearer ";
 
     //=========================토큰 생성 관련 시작=========================
     public String generateAccessToken(Long memberId) {
@@ -83,13 +83,23 @@ public class JwtTokenService {
         }
     }
 
-    public String getJwtFromRequest(HttpServletRequest request){
+    public String getJwtFromRequest(HttpServletRequest request, TokenType tokenType){
         String bearerToken = request.getHeader(AUTHORIZATION_HEADER);
-        if(bearerToken !=null && bearerToken.startsWith(BEARER_PREFIX)){
-            return bearerToken.substring(7);
+        if(bearerToken !=null && bearerToken.startsWith(tokenType.name())){
+            return bearerToken.substring(tokenType.name().length()+1);
         }
+        Cookie[] cookies = request.getCookies();
+        if(cookies != null){
+            for(Cookie cookie: cookies){
+                if(cookie.getName().equals(tokenType.name())){
+                    return cookie.getValue();
+                }
+            }
+        }
+
         throw new BusinessException(CommonErrorCode.NOT_VALID_TOKEN);
     }
+
     // 토큰의 만료 시간 확인
     private boolean isTokenExpired(Claims claims) {
         Date expiration = claims.getExpiration();
@@ -115,12 +125,28 @@ public class JwtTokenService {
     }
 
 
-    public ResponseEntity<AccessTokenResponseDto> regenerateAccessTokenByRefreshToken(HttpServletRequest request) {
-        String jwt = getJwtFromRequest(request);
+    public TokensResponseDto regenerateTokensByRefreshToken(HttpServletRequest request) {
+        String jwt = getJwtFromRequest(request,TokenType.REFRESH);
         validateToken(jwt,TokenType.REFRESH);
         Long memberId = getUserIdFromJwt(jwt);
-        String token = generateAccessToken(memberId);
-        return ResponseEntity.ok(AccessTokenResponseDto.builder().accessToken(token).build());
+        String accessToken = generateAccessToken(memberId);
+        String refreshToken = generateRefreshToken(memberId);
+        return TokensResponseDto.builder().accessToken(accessToken).refreshToken(refreshToken).build();
 
+    }
+
+    public void setTokensOnCookie(HttpServletResponse response, String accessToken, String refreshToken){
+        //JWT 토큰을 쿠키에 설정
+        Cookie accessTokenCookie = new Cookie(TokenType.ACCESS.name(), accessToken);
+        accessTokenCookie.setPath("/");
+//        accessTokenCookie.setHttpOnly(true);
+        accessTokenCookie.setMaxAge(ACCESS_TOKEN_EXPIRATION_TIME);
+        response.addCookie(accessTokenCookie);
+
+        Cookie refreshTokenCookie = new Cookie(TokenType.REFRESH.name(),refreshToken);
+        refreshTokenCookie.setPath("/");
+//        refreshTokenCookie.setHttpOnly(true);
+        refreshTokenCookie.setMaxAge(REFRESH_TOKEN_EXPIRATION_TIME);
+        response.addCookie(refreshTokenCookie);
     }
 }
