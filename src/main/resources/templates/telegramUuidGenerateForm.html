@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>카카오 로그인 페이지</title>
+</head>
+<style>
+    .wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+    }
+    .content {
+        font-family: system-ui, serif;
+        font-size: 2rem;
+        padding: 1rem;
+        border-radius: 1rem;
+        background: #ffbe0a;
+    }
+    a {
+        text-decoration-line: none
+    }
+</style>
+<body>
+<div class="wrapper">
+    <form action="/api/member/telegram-uuid" method="post">
+        <button type="submit">텔레그램 연동</button>
+    </form>
+</div>
+</body>
+</html>

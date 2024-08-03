@@ -6,9 +6,11 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
+import java.util.UUID;
+
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -34,6 +36,19 @@ public class Member {
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<MapMemberKeyword> mapMemberKeywords = new ArrayList<>();
 
+    @Column(name="telegram_authentication_uuid", unique = true)
+    private UUID telegramAuthenticationUuid;
+
+    @Column(name="telegram_authentication_uuid_created_at")
+    private LocalDateTime telegramUuidCreatedAt;
+
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<MapMemberTelegramUser> mapMemberTelegramUsers = new ArrayList<>();
+
+    public void generateTelegramUuid(UUID uuid) {
+        this.telegramAuthenticationUuid = uuid;
+        this.telegramUuidCreatedAt = LocalDateTime.now();
+    }
 
 
     // Getter, Setter

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @RequiredArgsConstructor
 @Slf4j
@@ -18,8 +19,16 @@ import java.util.Optional;
 public class MemberEntityService {
     private final MemberRepository memberRepository;
 
-    public Member getMemberByMemberId(long memberId){
+    public Member getMemberByMemberId(long memberId) {
         return memberRepository.findById(memberId)
-                .orElseThrow(()->new BusinessException(MemberErrorCode.MEMBER_NOT_FOUND));
+                .orElseThrow(() -> new BusinessException(MemberErrorCode.MEMBER_NOT_FOUND));
+    }
+
+    @Transactional
+    public Member updateTelegramUuid(Long memberId, UUID uuid) {
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new BusinessException(MemberErrorCode.MEMBER_NOT_FOUND));
+        member.generateTelegramUuid(uuid);
+        return member;
     }
 }

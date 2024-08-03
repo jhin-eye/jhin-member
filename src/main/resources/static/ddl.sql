@@ -1,9 +1,11 @@
--- 회원 정보를 저장하는 테이블
+ -- 회원 정보를 저장하는 테이블
 CREATE TABLE member
 (
     member_id       BIGSERIAL,                    -- 고유 회원 ID
     member_email    VARCHAR(255) UNIQUE NOT NULL, -- 고유 이메일 주소
     member_nickname VARCHAR(255) UNIQUE NOT NULL, -- 고유 닉네임
+    telegram_uuid UUID UNIQUE,
+    telegram_uuid_created_at timestamp,
     PRIMARY KEY (member_id)                       -- 기본 키 설정
 );
 
@@ -63,3 +65,5 @@ ALTER TABLE map_member_keyword
     ADD CONSTRAINT fk_map_member_keyword_keyword
         foreign key (keyword_id)
             references keyword (keyword_id);
+
+ CREATE INDEX idx_member_telegram_uuid ON member(telegram_uuid);
