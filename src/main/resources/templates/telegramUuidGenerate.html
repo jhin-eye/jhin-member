@@ -3,34 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <title>카카오 로그인 페이지</title>
+    <style>
+        .wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .content {
+            font-family: system-ui, serif;
+            font-size: 2rem;
+            padding: 1rem;
+            border-radius: 1rem;
+            background: #ffbe0a;
+            cursor: pointer; /* 클릭 가능한 포인터 표시 */
+        }
+
+        .disabled {
+            pointer-events: none; /* 클릭 비활성화 */
+            background: #d3d3d3; /* 비활성화 시 회색 배경 */
+        }
+
+        a {
+            text-decoration-line: none;
+        }
+    </style>
 </head>
-<style>
-    .wrapper {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-    }
-
-    .content {
-        font-family: system-ui, serif;
-        font-size: 2rem;
-        padding: 1rem;
-        border-radius: 1rem;
-        background: #ffbe0a;
-    }
-
-    a {
-        text-decoration-line: none
-    }
-</style>
 <body>
 <div class="wrapper">
-    <div class="content">
-        <p th:text="'|| ' + ${generateTelegramUuidOut.getUuid()}"></p>
-
+    <div class="content" id="contentDiv" onclick="copyToClipboard()">
+        <p id="uuidText" th:text="'|| ' + ${generateTelegramUuidOut.getUuid()}"></p>
     </div>
-
 </div>
+
+<script>
+    function copyToClipboard() {
+        // p 태그의 텍스트 요소를 가져옴
+        var uuidTextElement = document.getElementById('uuidText');
+        var contentDiv = document.getElementById('contentDiv');
+        var originalText = uuidTextElement.innerText;
+
+        // 텍스트를 가져옴
+        var textToCopy = originalText;
+
+        // 임시 텍스트 영역을 생성하여 텍스트를 복사
+        var tempTextArea = document.createElement('textarea');
+        tempTextArea.value = textToCopy;
+        document.body.appendChild(tempTextArea);
+        tempTextArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(tempTextArea);
+
+        // p 태그의 내용을 변경
+        uuidTextElement.innerText = '클립보드에 복사되었습니다';
+
+        // 클릭 비활성화
+        contentDiv.classList.add('disabled');
+
+        // 3초 후에 원래 내용으로 되돌리고 클릭 활성화
+        setTimeout(function() {
+            uuidTextElement.innerText = originalText;
+            contentDiv.classList.remove('disabled');
+        }, 3000);
+    }
+</script>
 </body>
 </html>

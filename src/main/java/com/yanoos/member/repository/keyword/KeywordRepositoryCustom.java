@@ -6,4 +6,6 @@ import java.util.List;
 
 public interface KeywordRepositoryCustom {
     List<Keyword> findKeywordsByMemberId(long memberId);
+    List<Keyword> findKeywordsInPostTitle(String postTitle);
+
 }

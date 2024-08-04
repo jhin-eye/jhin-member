@@ -28,4 +28,7 @@ public class MapMemberKeywordEntityService {
     }
 
 
+    public List<MapMemberKeyword> getMapMemberKeywordsByKeywordIds(List<Long> keywordIds) {
+        return mapmemberKeywordRepository.findByKeywordIds(keywordIds);
+    }
 }

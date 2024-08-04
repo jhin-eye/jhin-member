@@ -28,6 +28,13 @@ spring:
       enabled: true
       max-file-size: 100MB
       max-request-size: 100MB
+  kafka:
+    bootstrap-servers: localhost:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    consumer:
+      group-id: test
 kakao:
   host-name: KAKAO
   client-id: 6bb73a683ffd93e3ebf9512656e9267c

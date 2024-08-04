@@ -19,9 +19,16 @@ public class Event {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long eventId;
 
-    @Column(name = "event_data", nullable = false)
+    @Column(name = "event_data", columnDefinition = "json", nullable = false)
     private String eventData;
 
-    @Column(name = "finished", nullable = false)
-    private Boolean finished;
+    @Column(name = "published", nullable = false)
+    private Boolean published;
+
+    @Column(name = "event_type", nullable = false)
+    private String eventType;
+
+    public void done() {
+        this.published =true;
+    }
 }

@@ -35,4 +35,9 @@ public class KeywordEntityService {
     public List<Keyword> getKeywordsByMemberId(Long memberId) {
         return keywordRepository.findKeywordsByMemberId(memberId);
     }
+
+
+    public List<Keyword> getKeywordsInPostTitle(String postTitle) {
+        return keywordRepository.findKeywordsInPostTitle(postTitle);
+    }
 }

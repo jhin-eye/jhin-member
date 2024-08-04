@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface MapMemberKeywordRepository extends JpaRepository<MapMemberKeyword, MapMemberKeywordId> {
+public interface MapMemberKeywordRepository extends JpaRepository<MapMemberKeyword, MapMemberKeywordId>, MapMemberKeywordRepositoryCustom {
 
 }
