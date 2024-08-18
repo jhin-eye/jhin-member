@@ -9,13 +9,11 @@
 <body>
 <div th:replace="fragments/header :: header"></div>
 <div class="wrapper">
-    <!-- alert 메시지가 존재할 경우 화면에 표시 -->
-    <div th:if="${alert}" class="alert alert-warning">
-        <p th:text="${alert}"></p>
-    </div>
-    <form action="/api/member/telegram-uuid" method="post">
-        <button type="submit">텔레그램 연동</button>
-    </form>
+    <a th:href="@{'https://kauth.kakao.com/oauth/logout'(client_id=${clientId}, logout_redirect_uri=${logoutRedirectUri})}">
+        <div class="content">
+            카카오 로그아웃
+        </div>
+    </a>
 </div>
 </body>
 </html>

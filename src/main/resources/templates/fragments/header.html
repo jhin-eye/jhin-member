@@ -1,0 +1,27 @@
+<!-- header.html -->
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>공통 헤더</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}" />
+</head>
+<body>
+<div th:fragment="header">
+    <header>
+        <nav>
+            <ul>
+                <!-- 카카오 로그인 메뉴 -->
+                <li><a th:href="@{/api/kakao/login}">카카오로그인</a></li>
+                <!-- 카카오 로그아웃 메뉴 -->
+                <li><a th:href="@{/api/kakao/logout}">카카오로그아웃</a></li>
+                <!-- 키워드 관리 메뉴 -->
+                <li><a th:href="@{/api/view/keyword}">키워드관리</a></li>
+                <!-- 텔레그램 연동 메뉴 -->
+                <li><a th:href="@{/api/member/telegram-uuid}">텔레그램연동</a></li>
+            </ul>
+        </nav>
+    </header>
+</div>
+</body>
+</html>

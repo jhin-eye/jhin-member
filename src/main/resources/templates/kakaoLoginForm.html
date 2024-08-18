@@ -3,26 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>카카오 로그인 페이지</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
 </head>
-<style>
-    .wrapper {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-    }
-    .content {
-        font-family: system-ui, serif;
-        font-size: 2rem;
-        padding: 1rem;
-        border-radius: 1rem;
-        background: #ffbe0a;
-    }
-    a {
-        text-decoration-line: none
-    }
-</style>
+
 <body>
+<div th:replace="fragments/header :: header"></div>
 <div class="wrapper">
     <a th:href="@{'https://kauth.kakao.com/oauth/authorize'(client_id=${clientId}, redirect_uri=${redirectUri}, response_type='code')}">
         <div class="content">

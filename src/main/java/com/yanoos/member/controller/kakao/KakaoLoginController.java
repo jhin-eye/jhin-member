@@ -1,11 +1,9 @@
 package com.yanoos.member.controller.kakao;
 
 
-import com.yanoos.global.jwt.TokenType;
 import com.yanoos.global.jwt.dto.MyJwtDTO;
 import com.yanoos.global.jwt.service.JwtTokenService;
 import com.yanoos.member.business_service.kakao.KakaoLoginService;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -31,8 +29,14 @@ public class KakaoLoginController {
     //카카오로그인 페이지
     @GetMapping("/login")
     public String getKakaoLoginPage(Model model) {
-        kakaoLoginService.setUrlEnvironment(model);
+        kakaoLoginService.setLoginUrlEnvironment(model);
         return "kakaoLoginForm";
+    }
+    //카카오로그아웃 페이지
+    @GetMapping("/logout")
+    public String getKakaoLogoutPage(Model model) {
+        kakaoLoginService.setLogoutUrlEnvironment(model);
+        return "kakaoLogoutForm";
     }
 
     //인가코드 받아서 카카오토큰 요청 -> 카카오토큰으로 유저 정보 가져오기

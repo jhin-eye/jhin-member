@@ -30,7 +30,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
         }
         log.info("인증 인터셉터 시작");
         String jwt = jwtTokenService.getJwtFromRequest(request,TokenType.ACCESS);
-        jwtTokenService.validateToken(jwt, TokenType.ACCESS);
+        jwtTokenService.validateToken(jwt, TokenType.ACCESS, response);
         Long memberId = jwtTokenService.getUserIdFromJwt(jwt);//jwt에서 사용자 id 추출
         log.info("memberId = {}",memberId);
         CustomPrincipal principal = new CustomPrincipal(); //사용자의 주요 정보와 권한

@@ -2,16 +2,12 @@ server:
   port: 8765
 
 spring:
-  profiles:
-    active: prod
-  jackson:
-    time-zone: UTC
   datasource:
-    driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/test?serverTimezone=UTC
-    platform: postgres
-    username: yanoos
-    password: yanoos
+    driver-class-name: org.postgresql.Driver # PostgreSQL JDBC ????? ?????.
+    url: jdbc:postgresql://db-postgres:5432/${POSTGRES_DB_NAME}?serverTimezone=UTC # ?????? ?? 'shop' ??????? ???? ?? JDBC URL???.
+    platform: postgres # ???? ?????? ???? ?????.
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
   jpa:
     hibernate:
       ddl-auto: none
@@ -29,7 +25,7 @@ spring:
       max-file-size: 100MB
       max-request-size: 100MB
   kafka:
-    bootstrap-servers: localhost:9092
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS}:${KAFKA_BOOTSTRAP_SERVERS_PORT}
     producer:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
@@ -37,12 +33,11 @@ spring:
       group-id: test
 kakao:
   host-name: KAKAO
-  client-id: 6bb73a683ffd93e3ebf9512656e9267c
-  client-secret: eIGeH8BixyT9jpc08KrhVms2jjH6nQBI
-  redirect-uri: http://localhost:8765/api/kakao/callback
-  logout-redirect-uri: http://localhost:8765/api/kakao/login
+  client-id: ${KAKAO_CLIENT_ID}
+  client-secret: ${KAKAO_CLIENT_SECRET}
+  redirect-uri: ${KAKAO_REDIRECT_URI}
 
 jwt:
-  secret-key: temp-secret-key
+  secret-key: ${JWT_SECRET_KEY}
   access-token-expiration-time: 900000 #60*15*1000
   refresh-token-expiration-time: 259200000 #60*60*24*3*1000

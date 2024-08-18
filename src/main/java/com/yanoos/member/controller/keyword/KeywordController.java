@@ -46,9 +46,6 @@ public class KeywordController {
 
     private void validatePostKeywordIn(PostKeywordIn postKeywordIn) {
         Long memberId = authUtil.getMemberId();
-        if(!memberId.equals(postKeywordIn.getMemberId())){
-            throw new BusinessException(MemberErrorCode.MEMBER_NOT_FOUND);
-        }
         log.info("validatePostKeywordIn success!");
     }
 }

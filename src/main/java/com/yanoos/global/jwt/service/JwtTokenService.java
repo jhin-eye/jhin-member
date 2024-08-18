@@ -56,7 +56,7 @@ public class JwtTokenService {
 
 
     //=========================토큰 검증 관련 시작=========================
-    public boolean validateToken(String token,TokenType needTokenType) {
+    public boolean validateToken(String token,TokenType needTokenType, HttpServletResponse response) {
         log.info("validate in");
         try {
             log.info("get claims start");
@@ -125,9 +125,9 @@ public class JwtTokenService {
     }
 
 
-    public TokensResponseDto regenerateTokensByRefreshToken(HttpServletRequest request) {
+    public TokensResponseDto regenerateTokensByRefreshToken(HttpServletRequest request, HttpServletResponse response) {
         String jwt = getJwtFromRequest(request,TokenType.REFRESH);
-        validateToken(jwt,TokenType.REFRESH);
+        validateToken(jwt,TokenType.REFRESH, response);
         Long memberId = getUserIdFromJwt(jwt);
         String accessToken = generateAccessToken(memberId);
         String refreshToken = generateRefreshToken(memberId);

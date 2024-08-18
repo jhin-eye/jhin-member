@@ -9,19 +9,19 @@ import lombok.*;
 @Getter
 @ToString
 public class ValPostCreatedIn {
-    @JsonProperty("post_id")
+    @JsonProperty("postId")
     private Long postId;
-    @JsonProperty("board_name_eng")
+    @JsonProperty("boardNameEng")
     private String boardNameEng;
-    @JsonProperty("board_name_kor")
+    @JsonProperty("boardNameKor")
     private String boardNameKor;
-    @JsonProperty("post_no")
+    @JsonProperty("postNo")
     private String postNo;
-    @JsonProperty("post_title")
+    @JsonProperty("postTitle")
     private String postTitle;
-    @JsonProperty("post_url")
+    @JsonProperty("postUrl")
     private String postUrl;
-    @JsonProperty("post_write_date")
+    @JsonProperty("postWriteDate")
     private String postWriteDate;
 
 //    @JsonCreator

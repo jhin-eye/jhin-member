@@ -20,7 +20,7 @@ public class TokenController {
     @GetMapping("/by/refresh")
     public String createAccessTokenByRefreshToken(HttpServletRequest request, HttpServletResponse response){
         log.info("createAccessTokenByRefreshToken in");
-        TokensResponseDto tokensResponseDto = jwtTokenService.regenerateTokensByRefreshToken(request);
+        TokensResponseDto tokensResponseDto = jwtTokenService.regenerateTokensByRefreshToken(request, response);
         jwtTokenService.setTokensOnCookie(response, tokensResponseDto.getAccessToken(), tokensResponseDto.getRefreshToken());
         return "redirect:/api/view/keyword";
     }

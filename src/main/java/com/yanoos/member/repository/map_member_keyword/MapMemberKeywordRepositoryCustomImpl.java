@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
+
 @RequiredArgsConstructor
 public class MapMemberKeywordRepositoryCustomImpl implements MapMemberKeywordRepositoryCustom{
     private final JPAQueryFactory queryFactory;

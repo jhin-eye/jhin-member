@@ -60,4 +60,8 @@ public class MemberBusinessService {
         return members;
 
     }
+
+    public Member getMemberById(Long memberId) {
+        return memberEntityService.getMemberByMemberId(memberId);
+    }
 }

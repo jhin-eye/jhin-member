@@ -7,5 +7,4 @@ import lombok.Data;
 @Builder
 public class PostKeywordIn {
     private String keyword;
-    private Long memberId;
 }

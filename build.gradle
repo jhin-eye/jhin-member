@@ -16,6 +16,11 @@ java {
 	sourceCompatibility = '17'
 }
 
+// Spring Boot Jar 설정
+bootJar {
+	archiveFileName.set("member.jar")  // 최종 JAR 파일 이름을 'gyuhee.jar'로 설정
+}
+
 configurations {
 	compileOnly {
 		extendsFrom annotationProcessor

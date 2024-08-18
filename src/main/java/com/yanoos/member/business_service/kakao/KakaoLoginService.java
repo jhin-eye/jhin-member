@@ -30,11 +30,17 @@ public class KakaoLoginService {
     private String KAKAO_API_KEY;
     @Value("${kakao.redirect-uri}")
     private String KAKAO_REDIRECT_URI;
+    @Value("${kakao.logout-redirect-uri}")
+    private String KAKAO_LOGOUT_REDIRECT_URI;
     @Value("${kakao.client-secret}")
     private String KAKAO_CLIENT_SECRET;
-    public void setUrlEnvironment(Model model){
+    public void setLoginUrlEnvironment(Model model){
         model.addAttribute("clientId", KAKAO_API_KEY);
         model.addAttribute("redirectUri", KAKAO_REDIRECT_URI);
+    }
+    public void setLogoutUrlEnvironment(Model model){
+        model.addAttribute("clientId", KAKAO_API_KEY);
+        model.addAttribute("logoutRedirectUri", KAKAO_LOGOUT_REDIRECT_URI);
     }
 
 
