@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "post")
@@ -40,4 +42,7 @@ public class Post {
 
     @Column(name = "monitor_time", columnDefinition = "timestamptz default CURRENT_TIMESTAMP")
     private LocalDateTime monitorTime;
+
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<MapMemberPost> mapMemberPost = new ArrayList<>();
 }

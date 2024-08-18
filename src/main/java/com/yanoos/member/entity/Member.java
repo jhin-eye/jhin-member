@@ -45,6 +45,9 @@ public class Member {
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<MapMemberTelegramUser> mapMemberTelegramUsers = new ArrayList<>();
 
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<MapMemberPost> mapMemberPost = new ArrayList<>();
+
     public void generateTelegramUuid(UUID uuid) {
         this.telegramAuthenticationUuid = uuid;
         this.telegramUuidCreatedAt = LocalDateTime.now();
