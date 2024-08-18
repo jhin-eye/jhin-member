@@ -7,13 +7,15 @@
     <link rel="stylesheet" th:href="@{/css/styles.css}"/>
 </head>
 <body>
-<header th:replace="fragments/header :: header"></header>
+<header th:replace="~{fragments/header :: header}"></header>
 
 <div class="container">
-    <aside th:replace="fragments/aside :: aside"></aside>
-    <main class="content">
-        <div th:replace="${contentTemplate}"></div>
-    </main>
+<!--    &lt;!&ndash; 동적으로 로드되는 사이드바 &ndash;&gt;-->
+    <aside th:replace="@{${asideTemplate}}"></aside>
+<!--    &lt;!&ndash; 중앙 콘텐츠 영역 &ndash;&gt;-->
+<!--    <main class="content">-->
+<!--        <div th:replace="~{${contentTemplate}}"></div>-->
+<!--    </main>-->
 </div>
 
 <script th:src="@{/js/common.js}"></script>
