@@ -4,15 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <link rel="stylesheet" th:href="@{/css/index.css}"/>
 </head>
-
 <body>
-<main id="main-holder">
+<div class="login-container">
+    <div class="site-logo">
+        <img th:src="@{/img/jhineye_logo.png}" alt="Site Logo"/>
+    </div>
+    <h2>로그인</h2>
+    <!-- 로그인 버튼 이미지 -->
     <a th:href="@{'https://kauth.kakao.com/oauth/authorize'(client_id=${clientId}, redirect_uri=${redirectUri}, response_type='code')}">
-        <div class="content">
-            카카오 로그인
-        </div>
+        <img th:src="@{/img/kakao_login_medium_wide.png}" alt="Kakao Login"/>
     </a>
-</main>
+</div>
+
+<script th:src="@{/js/common.js}"></script>
 </body>
 </html>

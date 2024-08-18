@@ -53,7 +53,8 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
         log.info("인증 인터셉터 제외되는 요청인지 확인");
         String uri = request.getRequestURI();
         String method = request.getMethod();
-        return uri.matches("/test(/.*)?") && method.equalsIgnoreCase("POST");
+        return (uri.matches("/test(/.*)?") && method.equalsIgnoreCase("POST"))
+                ||(uri.matches("/") && method.equalsIgnoreCase("GET"));
     }
 
 
