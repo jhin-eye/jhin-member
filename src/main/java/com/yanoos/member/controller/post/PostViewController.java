@@ -16,8 +16,6 @@ public class PostViewController {
     public String getPosts(Model model){
 
         model.addAttribute("title","게시글 목록");
-        model.addAttribute("contentTemplate","pages/content/posts::section");
-        model.addAttribute("asideTemplate","pages/aside/postAside::aside");
         return "layout";
     }
 }

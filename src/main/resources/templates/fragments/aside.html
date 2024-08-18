@@ -1,0 +1,11 @@
+<!-- fragments/aside.html -->
+<div th:fragment="aside">
+    <header>
+        <nav>
+            <ul>
+                <li th:each="menu : ${menus}">
+                    <a th:href="@{${menu.url}}" th:text="${menu.name}">Menu</a>
+            </ul>
+        </nav>
+    </header>
+</div>
