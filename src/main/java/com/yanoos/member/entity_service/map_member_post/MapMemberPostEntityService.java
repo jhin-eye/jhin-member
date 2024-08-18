@@ -16,11 +16,16 @@ import java.util.List;
 public class MapMemberPostEntityService {
     private final MapMemberPostRepository mapMemberPostRepository;
 
-    public List<MapMemberPost> getMapMemberPostByMemberId(Long memberId) {
-        return mapMemberPostRepository.findByMemberId(memberId);
+    public List<MapMemberPost> getMapMemberPostsByMemberId(Long memberId) {
+        return mapMemberPostRepository.findByMemberMemberIdOrderByMapMemberPostIdDesc(memberId);
     }
 
-    public List<MapMemberPost> getMapMemberPostByPostId(Long postId) {
-        return mapMemberPostRepository.findByPostId(postId);
+    public List<MapMemberPost> getMapMemberPostsByPostId(Long postId) {
+        return mapMemberPostRepository.findByPostPostId(postId);
     }
+
+    public MapMemberPost getByMapMemberPostId(Long mapMemberPostId) {
+        return mapMemberPostRepository.findById(mapMemberPostId).orElseThrow();
+    }
+
 }

@@ -5,12 +5,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
-import java.util.List;
-
+@Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
 @SuperBuilder
-public class GetPostsOut {
-    private List<MapMemberPostOut> mapMemberPostOuts;
+public class MemberOut {
+    private Long memberId;
+    private String memberEmail;
+    private String memberNickname;
 }

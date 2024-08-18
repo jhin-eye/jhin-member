@@ -1,5 +1,6 @@
 package com.yanoos.member.entity;
 
+import com.yanoos.member.controller.dto.PostOut;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -45,4 +46,18 @@ public class Post {
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<MapMemberPost> mapMemberPost = new ArrayList<>();
+
+    public PostOut toDto(){
+        return PostOut.builder()
+                .postId(this.postId)
+                .boardNameEng(this.boardNameEng)
+                .boardNameKor(this.boardNameKor)
+                .postNo(this.postNo)
+                .postTitle(this.postTitle)
+                .postWriteDate(this.postWriteDate)
+                .postDepartment(this.postDepartment)
+                .postUrl(this.postUrl)
+                .monitorTime(this.monitorTime)
+                .build();
+    }
 }

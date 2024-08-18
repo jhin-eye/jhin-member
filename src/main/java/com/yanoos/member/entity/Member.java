@@ -1,5 +1,6 @@
 package com.yanoos.member.entity;
 
+import com.yanoos.member.controller.dto.MemberOut;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -55,4 +56,11 @@ public class Member {
 
 
     // Getter, Setter
+    public MemberOut toDto(){
+        return MemberOut.builder()
+                .memberId(this.memberId)
+                .memberEmail(this.memberEmail)
+                .memberNickname(this.memberNickname)
+                .build();
+    }
 }

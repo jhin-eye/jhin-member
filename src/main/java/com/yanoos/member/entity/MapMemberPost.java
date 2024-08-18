@@ -1,10 +1,8 @@
 package com.yanoos.member.entity;
 
-import com.yanoos.member.entity.dto.MapMemberKeywordId;
-import com.yanoos.member.entity.dto.MapMemberPostId;
+import com.yanoos.member.controller.dto.MapMemberPostOut;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -16,26 +14,33 @@ import lombok.NoArgsConstructor;
 @Table(name = "map_member_post")
 public class MapMemberPost {
 
-    @EmbeddedId
-    private MapMemberPostId id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "map_member_post_id")
+    private Long mapMemberPostId;
 
     @ManyToOne
-    @MapsId("memberId")
     @JoinColumn(name = "member_id", nullable = false)
     private Member member;
 
     @ManyToOne
-    @MapsId("postId")
     @JoinColumn(name = "post_id", nullable = false)
     private Post post;
 
     private boolean checked;
 
-    // 빌더 패턴을 사용하여 인스턴스를 생성할 때 id를 설정하는 메서드
-    @Builder
-    public MapMemberPost(Member member, Post post) {
-        this.id = new MapMemberPostId(member.getMemberId(), post.getPostId());
-        this.member = member;
-        this.post = post;
+
+
+    public MapMemberPostOut toDto(){
+        return MapMemberPostOut.builder()
+                .mapMemberPostId(this.mapMemberPostId)
+                .memberOut(member.toDto())
+                .postOut(post.toDto())
+                .checked(this.checked)
+                .build();
+    }
+
+    public void updateChecked() {
+        this.checked = !this.checked;
     }
 }
