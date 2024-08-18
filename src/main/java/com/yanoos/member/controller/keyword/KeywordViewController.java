@@ -53,7 +53,7 @@ public class KeywordViewController {
     public String postKeyword(@ModelAttribute PostKeywordIn postKeywordIn) {
         validatePostKeywordIn(postKeywordIn);
         PostKeywordOut postKeywordOut = keywordBusinessService.postKeyword(postKeywordIn);
-        return "redirect:/api/view/keyword";
+        return "redirect:/api/view/settings/keyword";
     }
 
     private void validatePostKeywordIn(PostKeywordIn postKeywordIn) {

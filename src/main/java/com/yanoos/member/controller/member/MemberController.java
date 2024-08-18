@@ -32,6 +32,6 @@ public class MemberController {
 
         GenerateTelegramUuidOut generateTelegramUuidOut = memberBusinessService.generateTelegramUuid(authUtil.getMemberId());
         model.addAttribute("generateTelegramUuidOut", generateTelegramUuidOut);
-        return "telegramUuidGenerate";
+        return "setting/telegramSettingUUidGenerated";
     }
 }

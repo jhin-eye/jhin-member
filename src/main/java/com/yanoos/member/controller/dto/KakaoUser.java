@@ -5,6 +5,7 @@ import lombok.*;
 
 @Getter
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
 @Data
 public class KakaoUser {

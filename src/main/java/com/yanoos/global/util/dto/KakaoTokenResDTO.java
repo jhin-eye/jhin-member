@@ -3,9 +3,11 @@ package com.yanoos.global.util.dto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 @Data
 public class KakaoTokenResDTO {
     private String token_type;

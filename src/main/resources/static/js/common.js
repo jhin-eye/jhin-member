@@ -21,4 +21,36 @@ $(document).ready(function() {
     console.log('jQuery is ready!');
 
     // 여기에 공통적으로 사용할 JS 코드를 작성 (예: 페이지 로드 시 특정 동작 수행)
+
 });
+
+
+function copyToClipboard() {
+    // p 태그의 텍스트 요소를 가져옴
+    var uuidTextElement = document.getElementById('uuidText');
+    var contentDiv = document.getElementById('contentDiv');
+    var originalText = uuidTextElement.innerText;
+
+    // 텍스트를 가져옴
+    var textToCopy = originalText;
+
+    // 임시 텍스트 영역을 생성하여 텍스트를 복사
+    var tempTextArea = document.createElement('textarea');
+    tempTextArea.value = textToCopy;
+    document.body.appendChild(tempTextArea);
+    tempTextArea.select();
+    document.execCommand('copy');
+    document.body.removeChild(tempTextArea);
+
+    // p 태그의 내용을 변경
+    uuidTextElement.innerText = '클립보드에 복사되었습니다';
+
+    // 클릭 비활성화
+    contentDiv.classList.add('disabled');
+
+    // 3초 후에 원래 내용으로 되돌리고 클릭 활성화
+    setTimeout(function() {
+        uuidTextElement.innerText = originalText;
+        contentDiv.classList.remove('disabled');
+    }, 3000);
+}
