@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,14 +45,14 @@ public class SettingViewController {
 
 
     @GetMapping("/keyword")
-    public String getKeywordSettings(Model model){
+    public String getKeywordSettings(Model model, RedirectAttributes redirectAttributes){
         List<String> mapMemberKeywords = new ArrayList<>();
         try {
             mapMemberKeywords=keywordBusinessService.getKeywordsByMemberId(authUtil.getMemberId());
         }catch (BusinessException e){
             if(e.getErrorCode().equals(MemberErrorCode.TELEGRAM_UUID_NOT_FOUND)){
-                model.addAttribute("alert","먼저 텔레그램 연동을 진행하세요");
-                return "telegramUuidGenerateForm";
+                redirectAttributes.addFlashAttribute("alert","먼저 텔레그램 연동을 진행하세요");
+                return "redirect:/api/view/settings/telegram";
             }else{
                 throw e;
             }
