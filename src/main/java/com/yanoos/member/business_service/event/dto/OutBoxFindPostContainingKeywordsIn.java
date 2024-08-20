@@ -29,4 +29,5 @@ public class OutBoxFindPostContainingKeywordsIn {
     private String postUrl;
 
     private String postWriteDate;
+    private List<String> containKeywords;
 }

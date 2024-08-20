@@ -36,6 +36,7 @@ public class EventBusinessService {
             jsonObject.put("boardNameEng", outBoxFindKeywordPostIn.getBoardNameEng());
             jsonObject.put("boardNameKor", outBoxFindKeywordPostIn.getBoardNameKor());
             jsonObject.put("memberId", member.getMemberId());
+            jsonObject.put("containKeywords",objectMapper.valueToTree(outBoxFindKeywordPostIn.getContainKeywords()));
 
             Event event = Event.builder()
                     .eventType(EventType.FIND_KEYWORD_POST.name())
