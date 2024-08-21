@@ -29,14 +29,15 @@ public class EventBusinessService {
         for(Member member : outBoxFindKeywordPostIn.getMembers()) {
             ObjectMapper objectMapper = new ObjectMapper();
             ObjectNode jsonObject = objectMapper.createObjectNode();
-            jsonObject.put("postNo", outBoxFindKeywordPostIn.getPostNo());
-            jsonObject.put("postTitle", outBoxFindKeywordPostIn.getPostTitle());
-            jsonObject.put("postUrl", outBoxFindKeywordPostIn.getPostUrl());
-            jsonObject.put("postWriteDate", outBoxFindKeywordPostIn.getPostWriteDate());
-            jsonObject.put("boardNameEng", outBoxFindKeywordPostIn.getBoardNameEng());
-            jsonObject.put("boardNameKor", outBoxFindKeywordPostIn.getBoardNameKor());
+            // jsonObject.put("postNo", outBoxFindKeywordPostIn.getPostNo());
+            // jsonObject.put("postTitle", outBoxFindKeywordPostIn.getPostTitle());
+            // jsonObject.put("postUrl", outBoxFindKeywordPostIn.getPostUrl());
+            // jsonObject.put("postWriteDate", outBoxFindKeywordPostIn.getPostWriteDate());
+            // jsonObject.put("boardNameEng", outBoxFindKeywordPostIn.getBoardNameEng());
+            // jsonObject.put("boardNameKor", outBoxFindKeywordPostIn.getBoardNameKor());
+            // jsonObject.put("containKeywords",objectMapper.valueToTree(outBoxFindKeywordPostIn.getContainKeywords()));
             jsonObject.put("memberId", member.getMemberId());
-            jsonObject.put("containKeywords",objectMapper.valueToTree(outBoxFindKeywordPostIn.getContainKeywords()));
+            jsonObject.put("postId", outBoxFindKeywordPostIn.getPostId());
 
             Event event = Event.builder()
                     .eventType(EventType.FIND_KEYWORD_POST.name())

@@ -11,18 +11,21 @@ import lombok.*;
 public class ValPostCreatedIn {
     @JsonProperty("postId")
     private Long postId;
-    @JsonProperty("boardNameEng")
-    private String boardNameEng;
-    @JsonProperty("boardNameKor")
-    private String boardNameKor;
-    @JsonProperty("postNo")
-    private String postNo;
-    @JsonProperty("postTitle")
-    private String postTitle;
-    @JsonProperty("postUrl")
-    private String postUrl;
-    @JsonProperty("postWriteDate")
-    private String postWriteDate;
+    // @JsonProperty("boardNameEng")
+    // private String boardNameEng;
+    // @JsonProperty("boardNameKor")
+    // private String boardNameKor;
+    // @JsonProperty("postNo")
+    // private String postNo;
+    // @JsonProperty("postTitle")
+    // private String postTitle;
+    // @JsonProperty("postUrl")
+    // private String postUrl;
+    // @JsonProperty("postWriteDate")
+    // private String postWriteDate;
+    // @JsonProperty("memberId")
+    // private String memberId;
+
 
 //    @JsonCreator
 //    public ValNewPostIn(

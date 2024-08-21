@@ -60,4 +60,8 @@ public class Post {
                 .monitorTime(this.monitorTime)
                 .build();
     }
+
+    public void addMapMemberPost(MapMemberPost mapMemberPost) {
+        this.mapMemberPost.add(mapMemberPost);
+    }
 }

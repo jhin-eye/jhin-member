@@ -1,12 +1,14 @@
 package com.yanoos.member.business_service.member;
 
+import com.yanoos.global.kafka.dto.PostCreatedIn;
+import com.yanoos.member.business_service.event.dto.OutBoxFindPostContainingKeywordsIn;
 import com.yanoos.member.controller.member.GenerateTelegramUuidOut;
-import com.yanoos.member.entity.Keyword;
-import com.yanoos.member.entity.MapMemberKeyword;
-import com.yanoos.member.entity.Member;
+import com.yanoos.member.entity.*;
 import com.yanoos.member.entity_service.keyword.KeywordEntityService;
 import com.yanoos.member.entity_service.map_member_keyword.MapMemberKeywordEntityService;
+import com.yanoos.member.entity_service.map_member_post.MapMemberPostEntityService;
 import com.yanoos.member.entity_service.member.MemberEntityService;
+import com.yanoos.member.entity_service.post.PostEntityService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -23,7 +25,8 @@ public class MemberBusinessService {
     private final MemberEntityService memberEntityService;
     private final KeywordEntityService keywordEntityService;
     private final MapMemberKeywordEntityService mapMemberKeywordEntityService;
-
+    private final MapMemberPostEntityService mapMemberPostEntityService;
+    private final PostEntityService postEntityService;
     /**
      * 텔레그램 UUID를 생성한다.
      *
@@ -40,28 +43,51 @@ public class MemberBusinessService {
                 .build();
     }
 
+
     /**
      * postTitle에 포함된 키워드를 모니터하는 회원 목록을 조회한다.
+     *
      * @param postTitle
      * @return
      */
     public List<Member> findMembersByPostTitle(String postTitle) {
-
-        //2. postTitle에 포함된 키워드 목록 작성
+        //postTitle에 포함된 키워드 목록 작성
         List<Keyword> keywords = keywordEntityService.getKeywordsInPostTitle(postTitle);
-        log.info("keywords which are in post title: {}", keywords);
-        //3. 해당 키워드를 모니터하는 회원 목록 작성
+       //해당 키워드를 모니터하는 회원 목록 작성
         List<MapMemberKeyword> mapMemberKeywords = mapMemberKeywordEntityService.getMapMemberKeywordsByKeywordIds(keywords.stream().map(Keyword::getKeywordId).toList());
         List<Member> members = mapMemberKeywords.stream().map(MapMemberKeyword::getMember).toList();
-        //members 중복 제거
-        members = members.stream().distinct().toList();
-
-        //4. 3에서 작성한 회원 목록 리턴
-        return members;
-
+        return members.stream().distinct().toList();
     }
 
     public Member getMemberById(Long memberId) {
         return memberEntityService.getMemberByMemberId(memberId);
+    }
+
+    @Transactional
+    public OutBoxFindPostContainingKeywordsIn mapMembersWithPost(PostCreatedIn postCreatedIn) {
+        Post post = postEntityService.getPostByPostId(postCreatedIn.getValue().getPostId());
+        log.info("postCreatedIn: {}", postCreatedIn.toString());
+        List<Member> members = findMembersByPostTitle(post.getPostTitle());
+        members.forEach(member -> {
+            List<String> containedKeywords = member.getMapMemberKeywords().stream()
+                    .map(mapMemberKeyword -> mapMemberKeyword.getKeyword().getKeyword()) // 각 MapMemberKeyword에서 키워드를 추출
+                    .filter(keyword -> post.getPostTitle().contains(keyword)) // 추출된 키워드가 postTitle에 포함되어 있는지 필터링
+                    .toList(); // 필터된 키워드를 리스트로 변환
+
+            MapMemberPost mapMemberPost = MapMemberPost.builder()
+                    .member(member)
+                    .post(post)
+                    .checked(false)
+                    .keywords(containedKeywords)
+                    .build();
+            member.addMapMemberPost(mapMemberPost);
+            post.addMapMemberPost(mapMemberPost);
+            mapMemberPostEntityService.saveMapMemberPost(mapMemberPost);
+        });
+
+        return OutBoxFindPostContainingKeywordsIn.builder()
+                .members(members)
+                .postId(post.getPostId())
+                .build();
     }
 }

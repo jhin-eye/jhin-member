@@ -30,7 +30,7 @@ public class KeywordRepositoryCustomImpl implements KeywordRepositoryCustom {
         QKeyword keyword = QKeyword.keyword1;
         List<Keyword> allKeywords = queryFactory.selectFrom(keyword).fetch();
         return allKeywords.stream()
-                .filter(k -> postTitle.contains(k.getKeyword()))
+                .filter(curKeyword -> postTitle.contains(curKeyword.getKeyword()))
                 .collect(Collectors.toList());
     }
 }

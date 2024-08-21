@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class PostEntityService {
     private final PostRepository postRepository;
 
-    public Post getPost(Long postId) {
+    public Post getPostByPostId(Long postId) {
         return postRepository.findByPostId(postId).orElseThrow();
     }
 }

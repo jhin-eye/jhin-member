@@ -28,4 +28,8 @@ public class MapMemberPostEntityService {
         return mapMemberPostRepository.findById(mapMemberPostId).orElseThrow();
     }
 
+    public MapMemberPost saveMapMemberPost(MapMemberPost mapMemberPost) {
+        mapMemberPostRepository.save(mapMemberPost);
+        return mapMemberPost;
+    }
 }

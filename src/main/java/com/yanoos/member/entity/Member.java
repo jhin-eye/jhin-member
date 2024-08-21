@@ -47,7 +47,7 @@ public class Member {
     private List<MapMemberTelegramUser> mapMemberTelegramUsers = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<MapMemberPost> mapMemberPost = new ArrayList<>();
+    private List<MapMemberPost> mapMemberPosts = new ArrayList<>();
 
     public void generateTelegramUuid(UUID uuid) {
         this.telegramAuthenticationUuid = uuid;
@@ -62,5 +62,9 @@ public class Member {
                 .memberEmail(this.memberEmail)
                 .memberNickname(this.memberNickname)
                 .build();
+    }
+
+    public void addMapMemberPost(MapMemberPost mapMemberPost) {
+        this.mapMemberPosts.add(mapMemberPost);
     }
 }

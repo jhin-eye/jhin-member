@@ -3,8 +3,11 @@ package com.yanoos.member.entity;
 import com.yanoos.member.controller.dto.MapMemberPostOut;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 
 @AllArgsConstructor
@@ -12,6 +15,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @Entity
 @Table(name = "map_member_post")
+@Builder
 public class MapMemberPost {
 
     @Id
@@ -27,7 +31,11 @@ public class MapMemberPost {
     @JoinColumn(name = "post_id", nullable = false)
     private Post post;
 
+    @Column(name = "checked", nullable = false)
     private boolean checked;
+
+    @Column(name = "keywords", columnDefinition = "text[]", nullable = false)
+    private List<String> keywords;
 
 
 
