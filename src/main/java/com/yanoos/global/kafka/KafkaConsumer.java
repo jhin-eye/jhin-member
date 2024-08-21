@@ -31,7 +31,7 @@ public class KafkaConsumer {
      * @param message
      * @throws JsonProcessingException
      */
-    @KafkaListener(topics = "POST_CREATED", groupId = "${spring.kafka.consumer.group-id}")
+    // @KafkaListener(topics = "POST_CREATED", groupId = "${spring.kafka.consumer.group-id}")
     public void consume(String message) throws JsonProcessingException {
         log.info("Consumed message: {}", message);
         ObjectMapper objectMapper = new ObjectMapper();

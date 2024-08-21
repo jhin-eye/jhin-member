@@ -45,6 +45,7 @@ public class MapMemberPost {
                 .memberOut(member.toDto())
                 .postOut(post.toDto())
                 .checked(this.checked)
+                .keywords(this.keywords)
                 .build();
     }
 

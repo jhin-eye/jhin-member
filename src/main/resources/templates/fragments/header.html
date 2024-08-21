@@ -22,7 +22,7 @@
                         <a th:href="@{/api/view/settings/keyword}" th:text="Setting">Setting</a>
                     </td>
                     <td class="logout-link">
-                        <a th:href="@{/api/view/settings}" th:text="Logout">Logout</a>
+                        <a th:href="@{'https://kauth.kakao.com/oauth/logout'(client_id=${clientId}, logout_redirect_uri=${logoutRedirectUri})}">Logout</a>
                     </td>
                 </tr>
             </table>

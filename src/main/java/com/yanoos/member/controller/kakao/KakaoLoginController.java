@@ -49,6 +49,6 @@ public class KakaoLoginController {
 
         //JWT 토큰을 쿠키에 설정
         jwtTokenService.setTokensOnCookie(response,accessToken,refreshToken);
-        return "kakaoCallback";
+        return "redirect:/";
     }
 }

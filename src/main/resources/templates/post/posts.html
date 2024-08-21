@@ -22,6 +22,7 @@
                 <th>한국게시판</th>
                 <th>영문게시판</th>
                 <th>체크여부</th>
+                <th>포함키워드</th>
             </tr>
             </thead>
             <tbody>
@@ -42,6 +43,7 @@
                                onclick="this.form.submit(); event.preventDefault();"/>
                     </form>
                 </td>
+                <td th:text="${mapMemberPost.getKeywords()}"></td>
             </tr>
             </tbody>
         </table>

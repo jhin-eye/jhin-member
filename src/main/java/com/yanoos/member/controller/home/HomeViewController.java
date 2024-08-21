@@ -24,7 +24,7 @@ public class HomeViewController {
         try{
             String jwt = jwtTokenService.getJwtFromRequest(request,TokenType.ACCESS);
             jwtTokenService.validateToken(jwt, TokenType.ACCESS, response);
-            return "redirect:/api/view/keyword";
+            return "redirect:/api/view/settings/keyword";
         }catch (Exception e){
             kakaoLoginService.setLoginUrlEnvironment(model);
             return "index";

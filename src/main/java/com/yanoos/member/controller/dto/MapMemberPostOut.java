@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
+import java.util.List;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
@@ -15,4 +17,5 @@ public class MapMemberPostOut {
     private MemberOut memberOut;
     private PostOut postOut;
     private boolean checked;
+    private List<String> keywords;
 }

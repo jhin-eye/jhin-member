@@ -29,6 +29,7 @@ kakao:
   client-id: 6bb73a683ffd93e3ebf9512656e9267c
   client-secret: eIGeH8BixyT9jpc08KrhVms2jjH6nQBI
   redirect-uri: http://localhost:8764/api/kakao/callback
+  logout-redirect-uri: http://localhost:8764/
 
 jwt:
   secret-key: tempsecretkeytempsecretkeytempsecretkeytempsecretkeytempsecretkeytempsecretkeytempsecretkeytempsecretkeytempsecretkeytempsecretkeytempsecretkeytempsecretkeytempsecretkeytempsecretkeytempsecretkeytempsecretkeytempsecretkey
