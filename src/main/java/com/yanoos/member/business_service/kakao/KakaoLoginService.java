@@ -64,7 +64,7 @@ public class KakaoLoginService {
         log.info("kakao member result = {}", memberOAuthKakao);
         //todo: jwt화
         Member member = memberOAuthKakao.getMemberOAuth().getMember();
-        Long memberId = member.getMemberId();
+        Long memberId = member.getId();
         String accessToken = jwtTokenService.generateAccessToken(memberId);
         String refreshToken = jwtTokenService.generateRefreshToken(memberId);
 

@@ -23,13 +23,25 @@ public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id")
-    private Long memberId;
+    private Long id;
 
     @Column(name = "member_email", nullable = false, unique = true)
-    private String memberEmail;
+    private String email;
 
     @Column(name = "member_nickname", nullable = false, unique = true)
-    private String memberNickname;
+    private String nickname;
+
+    @Column(name="member_role", nullable = false)
+    private String role;
+
+    @Column(name="telegram_authentication_uuid", unique = true)
+    private UUID telegramAuthenticationUuid;
+
+    @Column(name="telegram_authentication_uuid_created_at")
+    private LocalDateTime telegramUuidCreatedAt;
+
+    @Column(name="is_approved", nullable = false)
+    private boolean isApproved;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<MemberOAuth> memberOAuths = new ArrayList<>();
@@ -37,11 +49,6 @@ public class Member {
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<MapMemberKeyword> mapMemberKeywords = new ArrayList<>();
 
-    @Column(name="telegram_authentication_uuid", unique = true)
-    private UUID telegramAuthenticationUuid;
-
-    @Column(name="telegram_authentication_uuid_created_at")
-    private LocalDateTime telegramUuidCreatedAt;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<MapMemberTelegramUser> mapMemberTelegramUsers = new ArrayList<>();
@@ -58,9 +65,9 @@ public class Member {
     // Getter, Setter
     public MemberOut toDto(){
         return MemberOut.builder()
-                .memberId(this.memberId)
-                .memberEmail(this.memberEmail)
-                .memberNickname(this.memberNickname)
+                .memberId(this.id)
+                .memberEmail(this.email)
+                .memberNickname(this.nickname)
                 .build();
     }
 

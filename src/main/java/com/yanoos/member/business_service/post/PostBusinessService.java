@@ -6,7 +6,6 @@ import com.yanoos.member.controller.dto.GetPostsOut;
 import com.yanoos.member.controller.dto.MapMemberPostOut;
 import com.yanoos.member.entity.MapMemberPost;
 import com.yanoos.member.entity_service.map_member_post.MapMemberPostEntityService;
-import com.yanoos.member.entity_service.post.PostEntityService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -37,7 +36,7 @@ public class PostBusinessService {
 
     private void validationUpdateCheckedByMapMemberPostId(Long memberId, Long mapMemberPostId) {
         MapMemberPost mapMemberPost = mapMemberPostEntityService.getByMapMemberPostId(mapMemberPostId);
-        if(mapMemberPost.getMember().getMemberId() != memberId){
+        if(mapMemberPost.getMember().getId() != memberId){
             throw new BusinessException(CommonErrorCode.MEMBER_NOT_FOUND);
         }
     }
