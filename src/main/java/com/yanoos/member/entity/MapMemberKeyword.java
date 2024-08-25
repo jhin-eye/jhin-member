@@ -31,7 +31,7 @@ public class MapMemberKeyword {
     // 빌더 패턴을 사용하여 인스턴스를 생성할 때 id를 설정하는 메서드
     @Builder
     public MapMemberKeyword (Member member, Keyword keyword) {
-        this.id = new MapMemberKeywordId(member.getId(), keyword.getKeywordId());
+        this.id = new MapMemberKeywordId(member.getId(), keyword.getId());
         this.member = member;
         this.keyword = keyword;
 

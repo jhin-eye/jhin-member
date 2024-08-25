@@ -54,7 +54,7 @@ public class MemberBusinessService {
         //postTitle에 포함된 키워드 목록 작성
         List<Keyword> keywords = keywordEntityService.getKeywordsInPostTitle(postTitle);
        //해당 키워드를 모니터하는 회원 목록 작성
-        List<MapMemberKeyword> mapMemberKeywords = mapMemberKeywordEntityService.getMapMemberKeywordsByKeywordIds(keywords.stream().map(Keyword::getKeywordId).toList());
+        List<MapMemberKeyword> mapMemberKeywords = mapMemberKeywordEntityService.getMapMemberKeywordsByKeywordIds(keywords.stream().map(Keyword::getId).toList());
         List<Member> members = mapMemberKeywords.stream().map(MapMemberKeyword::getMember).toList();
         return members.stream().distinct().toList();
     }
