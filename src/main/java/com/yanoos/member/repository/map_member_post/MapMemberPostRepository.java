@@ -1,13 +1,15 @@
 package com.yanoos.member.repository.map_member_post;
 
-import com.yanoos.member.entity.MapMemberPost;
+import com.yanoos.member.entity.member.MapMemberPost;
+import com.yanoos.member.entity.member.Member;
+import com.yanoos.member.entity.board.Post;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
 public interface MapMemberPostRepository extends JpaRepository<MapMemberPost, Long> {
-    public List<MapMemberPost> findByMemberMemberIdOrderByMapMemberPostIdDesc(Long memberId);
+    public List<MapMemberPost> findByMemberOrderByIdDesc(Member member);
 
-    public List<MapMemberPost> findByPostPostId(Long memberId);
+    public List<MapMemberPost> findByPost(Post post);
 
 }

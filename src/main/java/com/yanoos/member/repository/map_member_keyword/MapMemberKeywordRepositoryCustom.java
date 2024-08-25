@@ -1,7 +1,6 @@
 package com.yanoos.member.repository.map_member_keyword;
 
-import com.yanoos.member.entity.Keyword;
-import com.yanoos.member.entity.MapMemberKeyword;
+import com.yanoos.member.entity.member.MapMemberKeyword;
 
 import java.util.List;
 

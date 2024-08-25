@@ -1,6 +1,6 @@
 package com.yanoos.member.repository.post;
 
-import com.yanoos.member.entity.Post;
+import com.yanoos.member.entity.board.Post;
 import org.springframework.data.domain.Pageable;
 
 import java.util.List;

@@ -3,7 +3,7 @@ package com.yanoos.member.controller.kakao;
 
 import com.yanoos.global.jwt.dto.MyJwtDTO;
 import com.yanoos.global.jwt.service.JwtTokenService;
-import com.yanoos.member.business_service.kakao.KakaoLoginService;
+import com.yanoos.member.service.business_service.kakao.KakaoLoginService;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

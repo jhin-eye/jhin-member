@@ -1,6 +1,6 @@
 package com.yanoos.member.repository.keyword;
 
-import com.yanoos.member.entity.Keyword;
+import com.yanoos.member.entity.member.Keyword;
 
 import java.util.List;
 

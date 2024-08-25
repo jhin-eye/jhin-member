@@ -1,10 +1,9 @@
 package com.yanoos.member.controller.post;
 
 import com.yanoos.global.util.AuthUtil;
-import com.yanoos.member.business_service.post.PostBusinessService;
+import com.yanoos.member.service.business_service.post.PostBusinessService;
 import com.yanoos.member.controller.dto.AsideMenu;
 import com.yanoos.member.controller.dto.GetPostsOut;
-import com.yanoos.member.controller.dto.PostOut;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;

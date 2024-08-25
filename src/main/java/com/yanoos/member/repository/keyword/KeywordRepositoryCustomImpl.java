@@ -1,7 +1,7 @@
 package com.yanoos.member.repository.keyword;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.yanoos.member.entity.Keyword;
+import com.yanoos.member.entity.member.Keyword;
 import com.yanoos.member.entity.QKeyword;
 import com.yanoos.member.entity.QMapMemberKeyword;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +21,7 @@ public class KeywordRepositoryCustomImpl implements KeywordRepositoryCustom {
 
         return queryFactory.selectFrom(keyword)
                 .innerJoin(mapMemberKeyword).on(mapMemberKeyword.keyword.eq(keyword))
-                .where(mapMemberKeyword.member.memberId.eq(memberId))
+                .where(mapMemberKeyword.member.id.eq(memberId))
                 .fetch();
     }
 

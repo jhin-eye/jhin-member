@@ -3,12 +3,12 @@ package com.yanoos.global.kafka;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yanoos.global.kafka.dto.PostCreatedIn;
-import com.yanoos.member.business_service.event.EventBusinessService;
-import com.yanoos.member.business_service.event.dto.OutBoxFindPostContainingKeywordsIn;
-import com.yanoos.member.business_service.member.MemberBusinessService;
-import com.yanoos.member.entity.Member;
-import com.yanoos.member.entity.Post;
-import com.yanoos.member.entity_service.post.PostEntityService;
+import com.yanoos.member.service.business_service.event.EventBusinessService;
+import com.yanoos.member.service.business_service.event.dto.OutBoxFindPostContainingKeywordsIn;
+import com.yanoos.member.service.business_service.member.MemberBusinessService;
+import com.yanoos.member.entity.member.Member;
+import com.yanoos.member.entity.board.Post;
+import com.yanoos.member.service.entity_service.post.PostEntityService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -37,6 +37,8 @@ public class KafkaConsumer {
         ObjectMapper objectMapper = new ObjectMapper();
         PostCreatedIn postCreatedIn = objectMapper.readValue(message, PostCreatedIn.class);
         OutBoxFindPostContainingKeywordsIn outBoxFindPostContainingKeywordsIn = memberBusinessService.mapMembersWithPost(postCreatedIn);//멤버 포스트 매핑
+        outBoxFindPostContainingKeywordsIn.setParentEventId(postCreatedIn.getEventId());
+
         eventBusinessService.outBoxFindKeywordPost(outBoxFindPostContainingKeywordsIn);
         log.info("consume finish");
     }
@@ -45,12 +47,6 @@ public class KafkaConsumer {
         return OutBoxFindPostContainingKeywordsIn.builder()
                 .members(members)
                 .postId(post.getId())
-                // .postNo(postCreatedIn.getValue().getPostNo())
-                // .postTitle(postCreatedIn.getValue().getPostTitle())
-                // .postUrl(postCreatedIn.getValue().getPostUrl())
-                // .postWriteDate(postCreatedIn.getValue().getPostWriteDate())
-                // .boardNameEng(postCreatedIn.getValue().getBoardNameEng())
-                // .boardNameKor(postCreatedIn.getValue().getBoardNameKor())
                 .build();
     }
 

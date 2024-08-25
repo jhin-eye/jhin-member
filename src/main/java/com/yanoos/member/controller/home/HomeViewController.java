@@ -2,7 +2,7 @@ package com.yanoos.member.controller.home;
 
 import com.yanoos.global.jwt.TokenType;
 import com.yanoos.global.jwt.service.JwtTokenService;
-import com.yanoos.member.business_service.kakao.KakaoLoginService;
+import com.yanoos.member.service.business_service.kakao.KakaoLoginService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;

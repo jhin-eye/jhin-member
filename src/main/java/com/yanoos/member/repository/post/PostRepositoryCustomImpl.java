@@ -2,7 +2,7 @@ package com.yanoos.member.repository.post;
 
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.yanoos.member.entity.Post;
+import com.yanoos.member.entity.board.Post;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 import static com.yanoos.member.entity.QMember.member;
-import static com.yanoos.member.entity.QPost.post;
 
 
 @Repository
