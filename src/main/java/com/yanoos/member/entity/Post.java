@@ -1,6 +1,7 @@
 package com.yanoos.member.entity;
 
 import com.yanoos.member.controller.dto.PostOut;
+import com.yanoos.member.entity.board.Board;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -10,7 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "post")
+@Table(name = "post",
+        uniqueConstraints = @UniqueConstraint(columnNames = {"board_id", "post_no", "post_title"}))
 @Getter
 @Setter
 public class Post {
@@ -18,30 +20,28 @@ public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "post_id")
-    private Long postId;
+    private Long id;
 
-    @Column(name = "board_name_eng", nullable = false, length = 255)
-    private String boardNameEng;
-
-    @Column(name = "board_name_kor", nullable = false, length = 255)
-    private String boardNameKor;
+    @ManyToOne
+    @JoinColumn(name = "board_id", nullable = false)
+    private Board board;
 
     @Column(name = "post_no", nullable = false, length = 255)
-    private String postNo;
+    private String no;
 
     @Column(name = "post_title", nullable = false, length = 255)
-    private String postTitle;
+    private String title;
 
     @Column(name = "post_write_date")
-    private LocalDateTime postWriteDate;
+    private LocalDateTime writeDate;
 
-    @Column(name = "post_department", nullable = false, columnDefinition = "text")
-    private String postDepartment;
+    @Column(name = "post_department", nullable = false, length = 255)
+    private String department;
 
     @Column(name = "post_url", nullable = false, columnDefinition = "text")
-    private String postUrl;
+    private String url;
 
-    @Column(name = "monitor_time", columnDefinition = "timestamptz default CURRENT_TIMESTAMP")
+    @Column(name = "monitor_time", nullable = false)
     private LocalDateTime monitorTime;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
@@ -49,14 +49,13 @@ public class Post {
 
     public PostOut toDto(){
         return PostOut.builder()
-                .postId(this.postId)
-                .boardNameEng(this.boardNameEng)
-                .boardNameKor(this.boardNameKor)
-                .postNo(this.postNo)
-                .postTitle(this.postTitle)
-                .postWriteDate(this.postWriteDate)
-                .postDepartment(this.postDepartment)
-                .postUrl(this.postUrl)
+                .postId(this.id)
+                .board(this.board.toDto())
+                .postNo(this.no)
+                .postTitle(this.title)
+                .postWriteDate(this.writeDate)
+                .postDepartment(this.department)
+                .postUrl(this.url)
                 .monitorTime(this.monitorTime)
                 .build();
     }

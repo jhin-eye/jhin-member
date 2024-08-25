@@ -44,7 +44,7 @@ public class KafkaConsumer {
     private OutBoxFindPostContainingKeywordsIn createOutBoxFindPostContainingKeywords(List<Member> members, Post post) {
         return OutBoxFindPostContainingKeywordsIn.builder()
                 .members(members)
-                .postId(post.getPostId())
+                .postId(post.getId())
                 // .postNo(postCreatedIn.getValue().getPostNo())
                 // .postTitle(postCreatedIn.getValue().getPostTitle())
                 // .postUrl(postCreatedIn.getValue().getPostUrl())

@@ -1,5 +1,6 @@
 package com.yanoos.member.entity.board;
 
+import com.yanoos.member.controller.dto.BoardOut;
 import jakarta.persistence.*;
 
 /*
@@ -35,4 +36,13 @@ public class Board {
     @JoinColumn(name = "board_type_id", nullable = false)
     private BoardType type;
 
+    public BoardOut toDto() {
+        return BoardOut.builder()
+                .id(this.id)
+                .nameEng(this.nameEng)
+                .nameKor(this.nameKor)
+                .url(this.url)
+                .type(this.type)
+                .build();
+    }
 }

@@ -67,11 +67,11 @@ public class MemberBusinessService {
     public OutBoxFindPostContainingKeywordsIn mapMembersWithPost(PostCreatedIn postCreatedIn) {
         Post post = postEntityService.getPostByPostId(postCreatedIn.getValue().getPostId());
         log.info("postCreatedIn: {}", postCreatedIn.toString());
-        List<Member> members = findMembersByPostTitle(post.getPostTitle());
+        List<Member> members = findMembersByPostTitle(post.getTitle());
         members.forEach(member -> {
             List<String> containedKeywords = member.getMapMemberKeywords().stream()
                     .map(mapMemberKeyword -> mapMemberKeyword.getKeyword().getKeyword()) // 각 MapMemberKeyword에서 키워드를 추출
-                    .filter(keyword -> post.getPostTitle().contains(keyword)) // 추출된 키워드가 postTitle에 포함되어 있는지 필터링
+                    .filter(keyword -> post.getTitle().contains(keyword)) // 추출된 키워드가 postTitle에 포함되어 있는지 필터링
                     .toList(); // 필터된 키워드를 리스트로 변환
 
             MapMemberPost mapMemberPost = MapMemberPost.builder()
@@ -87,7 +87,7 @@ public class MemberBusinessService {
 
         return OutBoxFindPostContainingKeywordsIn.builder()
                 .members(members)
-                .postId(post.getPostId())
+                .postId(post.getId())
                 .build();
     }
 }
