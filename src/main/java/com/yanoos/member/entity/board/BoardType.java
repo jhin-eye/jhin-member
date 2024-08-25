@@ -25,7 +25,7 @@ public class BoardType {
     @Column(name = "board_type_description")
     private String description;
 
-    @OneToMany(mappedBy = "boardType", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "type", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Board> boards = new ArrayList<>();
 
 }

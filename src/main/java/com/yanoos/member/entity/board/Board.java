@@ -20,19 +20,19 @@ public class Board {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "board_id")
-    private Long boardId;
+    private Long id;
 
     @Column(name = "board_name_eng", nullable = false, length = 255)
-    private String boardNameEng;
+    private String nameEng;
 
     @Column(name = "board_name_kor", nullable = false, length = 255)
-    private String boardNameKor;
+    private String nameKor;
 
     @Column(name = "board_url", nullable = false, columnDefinition = "text")
-    private String boardUrl;
+    private String url;
 
     @ManyToOne
     @JoinColumn(name = "board_type_id", nullable = false)
-    private BoardType boardType;
+    private BoardType type;
 
 }
