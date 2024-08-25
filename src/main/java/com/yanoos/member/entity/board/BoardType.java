@@ -2,6 +2,9 @@ package com.yanoos.member.entity.board;
 
 import jakarta.persistence.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /*
 create table board_type(
 	board_type_id bigserial primary key,
@@ -21,5 +24,8 @@ public class BoardType {
 
     @Column(name = "board_type_description")
     private String description;
+
+    @OneToMany(mappedBy = "boardType", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Board> boards = new ArrayList<>();
 
 }
