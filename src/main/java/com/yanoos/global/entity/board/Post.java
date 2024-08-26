@@ -32,6 +32,9 @@ public class Post {
     @Column(name = "post_title", nullable = false, length = 255)
     private String title;
 
+    @Column(name = "post_content", columnDefinition = "text")
+    private String content;
+
     @Column(name = "post_write_date")
     private LocalDateTime writeDate;
 
