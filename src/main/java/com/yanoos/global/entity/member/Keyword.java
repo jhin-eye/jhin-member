@@ -1,33 +1,37 @@
-package com.yanoos.member.entity.member;
+package com.yanoos.global.entity.member;
 
+import com.yanoos.global.entity.board.BoardType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Entity
-@Table(name = "member_oauth")
-public class MemberOAuth {
+@Table(name = "keyword")
+public class Keyword {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "member_oauth_id")
+    @Column(name = "keyword_id")
     private Long id;
 
     @ManyToOne
     @JoinColumn(name = "member_id", nullable = false)
     private Member member;
 
-    @Column(name = "oauth_host", nullable = false)
-    private String host;
+    @ManyToOne
+    @JoinColumn(name="board_type_id", nullable = false)
+    private BoardType boardType;
 
-    @OneToOne(mappedBy = "memberOAuth", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private MemberOAuthKakao memberOAuthKakao;
+    @Column(name = "keyword", unique = true, nullable = false)
+    private String keyword;
 
     // Getter, Setter
 }

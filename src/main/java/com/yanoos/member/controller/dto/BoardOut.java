@@ -1,10 +1,7 @@
 package com.yanoos.member.controller.dto;
 
 
-import com.yanoos.member.entity.board.BoardType;
-import jakarta.persistence.Column;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import com.yanoos.global.entity.board.BoardType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

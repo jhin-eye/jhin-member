@@ -1,6 +1,6 @@
 package com.yanoos.member.repository.keyword;
 
-import com.yanoos.member.entity.member.Keyword;
+import com.yanoos.global.entity.member.Keyword;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

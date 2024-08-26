@@ -6,9 +6,8 @@ import com.yanoos.global.util.AuthUtil;
 import com.yanoos.member.service.business_service.dto.CreateKeywordIn;
 import com.yanoos.member.controller.dto.PostKeywordIn;
 import com.yanoos.member.controller.dto.PostKeywordOut;
-import com.yanoos.member.entity.member.Keyword;
-import com.yanoos.member.entity.member.MapMemberKeyword;
-import com.yanoos.member.entity.member.Member;
+import com.yanoos.global.entity.member.Keyword;
+import com.yanoos.global.entity.member.Member;
 import com.yanoos.member.service.entity_service.keyword.KeywordEntityService;
 import com.yanoos.member.service.entity_service.map_member_keyword.MapMemberKeywordEntityService;
 import com.yanoos.member.service.entity_service.map_member_keyword.dto.CreateMapMemberKeywordIn;
@@ -57,8 +56,9 @@ public class KeywordBusinessService {
 
     public List<String> getKeywordsByMemberId(long memberId) {
         validationTelegramIdExist(memberId);
+        Member member = memberEntityService.getMemberByMemberId(memberId);
 
-        List<Keyword> mapMemberKeywords = keywordEntityService.getKeywordsByMemberId(memberId);
+        List<Keyword> mapMemberKeywords = member.getKeywords();
         return mapMemberKeywords.stream().map(Keyword::getKeyword).toList();
     }
 

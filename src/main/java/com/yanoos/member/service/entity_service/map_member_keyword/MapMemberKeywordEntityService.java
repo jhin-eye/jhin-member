@@ -1,8 +1,6 @@
 package com.yanoos.member.service.entity_service.map_member_keyword;
 
-import com.yanoos.member.entity.member.MapMemberKeyword;
 import com.yanoos.member.service.entity_service.map_member_keyword.dto.CreateMapMemberKeywordIn;
-import com.yanoos.member.repository.map_member_keyword.MapMemberKeywordRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

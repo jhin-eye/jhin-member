@@ -1,7 +1,7 @@
 package com.yanoos.member.repository.event;
 
 
-import com.yanoos.member.entity.event.Event;
+import com.yanoos.global.entity.event.Event;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

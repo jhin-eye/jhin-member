@@ -1,36 +1,31 @@
 package com.yanoos.member.repository.keyword;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.yanoos.member.entity.member.Keyword;
-import com.yanoos.member.entity.QKeyword;
-import com.yanoos.member.entity.QMapMemberKeyword;
+import com.yanoos.global.entity.member.Keyword;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 import java.util.stream.Collectors;
-
+import static com.yanoos.global.entity.member.QKeyword.keyword1;
+import static com.yanoos.global.entity.member.QMapMemberKeyword.mapMemberKeyword;
 
 @RequiredArgsConstructor
 public class KeywordRepositoryCustomImpl implements KeywordRepositoryCustom {
     private final JPAQueryFactory queryFactory;
 
-    @Override
-    public List<Keyword> findKeywordsByMemberId(long memberId) {
-        QMapMemberKeyword mapMemberKeyword = QMapMemberKeyword.mapMemberKeyword;
-        QKeyword keyword = QKeyword.keyword1;
-
-        return queryFactory.selectFrom(keyword)
-                .innerJoin(mapMemberKeyword).on(mapMemberKeyword.keyword.eq(keyword))
-                .where(mapMemberKeyword.member.id.eq(memberId))
-                .fetch();
-    }
-
-    @Override
-    public List<Keyword> findKeywordsInPostTitle(String postTitle) {
-        QKeyword keyword = QKeyword.keyword1;
-        List<Keyword> allKeywords = queryFactory.selectFrom(keyword).fetch();
-        return allKeywords.stream()
-                .filter(curKeyword -> postTitle.contains(curKeyword.getKeyword()))
-                .collect(Collectors.toList());
-    }
+    // @Override
+    // public List<Keyword> findKeywordsByMemberId(long memberId) {
+    //     return queryFactory.selectFrom(keyword1)
+    //             .innerJoin(mapMemberKeyword).on(mapMemberKeyword.keyword.eq(keyword1))
+    //             .where(mapMemberKeyword.member.id.eq(memberId))
+    //             .fetch();
+    // }
+    //
+    // @Override
+    // public List<Keyword> findKeywordsInPostTitle(String postTitle) {
+    //     List<Keyword> allKeywords = queryFactory.selectFrom(keyword1).fetch();
+    //     return allKeywords.stream()
+    //             .filter(curKeyword -> postTitle.contains(curKeyword.getKeyword()))
+    //             .collect(Collectors.toList());
+    // }
 }

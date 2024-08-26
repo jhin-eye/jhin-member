@@ -1,6 +1,6 @@
 package com.yanoos.member.service.entity_service.post;
 
-import com.yanoos.member.entity.board.Post;
+import com.yanoos.global.entity.board.Post;
 import com.yanoos.member.repository.post.PostRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

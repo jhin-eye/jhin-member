@@ -1,6 +1,6 @@
 package com.yanoos.member.service.entity_service.keyword;
 
-import com.yanoos.member.entity.member.Keyword;
+import com.yanoos.global.entity.member.Keyword;
 import com.yanoos.member.repository.keyword.KeywordRepository;
 import com.yanoos.member.service.business_service.dto.CreateKeywordIn;
 import lombok.RequiredArgsConstructor;
@@ -31,13 +31,5 @@ public class KeywordEntityService {
         return keyword;
     }
 
-    @Transactional
-    public List<Keyword> getKeywordsByMemberId(Long memberId) {
-        return keywordRepository.findKeywordsByMemberId(memberId);
-    }
 
-
-    public List<Keyword> getKeywordsInPostTitle(String postTitle) {
-        return keywordRepository.findKeywordsInPostTitle(postTitle);
-    }
 }

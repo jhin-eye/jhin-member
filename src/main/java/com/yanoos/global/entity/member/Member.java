@@ -1,4 +1,4 @@
-package com.yanoos.member.entity.member;
+package com.yanoos.global.entity.member;
 
 import com.yanoos.member.controller.dto.MemberOut;
 import jakarta.persistence.*;
@@ -46,9 +46,8 @@ public class Member {
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<MemberOAuth> memberOAuths = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<MapMemberKeyword> mapMemberKeywords = new ArrayList<>();
-
+    @OneToMany(mappedBy="member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Keyword> keywords = new ArrayList<>();
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<MapMemberTelegramUser> mapMemberTelegramUsers = new ArrayList<>();

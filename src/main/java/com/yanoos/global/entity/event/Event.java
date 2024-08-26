@@ -1,4 +1,4 @@
-package com.yanoos.member.entity.event;
+package com.yanoos.global.entity.event;
 
 
 import jakarta.persistence.*;

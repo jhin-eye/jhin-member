@@ -1,6 +1,6 @@
-package com.yanoos.member.entity.member;
+package com.yanoos.global.entity.member;
 
-import com.yanoos.member.entity.board.Board;
+import com.yanoos.global.entity.board.Board;
 import jakarta.persistence.*;
 
 /*

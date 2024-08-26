@@ -1,7 +1,7 @@
-package com.yanoos.member.entity.member;
+package com.yanoos.global.entity.member;
 
 import com.yanoos.member.controller.dto.MapMemberPostOut;
-import com.yanoos.member.entity.board.Post;
+import com.yanoos.global.entity.board.Post;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

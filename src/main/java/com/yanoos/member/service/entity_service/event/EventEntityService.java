@@ -1,6 +1,6 @@
 package com.yanoos.member.service.entity_service.event;
 
-import com.yanoos.member.entity.event.Event;
+import com.yanoos.global.entity.event.Event;
 import com.yanoos.member.repository.event.EventRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

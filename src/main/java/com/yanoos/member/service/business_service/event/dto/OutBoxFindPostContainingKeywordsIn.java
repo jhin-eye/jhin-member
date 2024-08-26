@@ -1,6 +1,6 @@
 package com.yanoos.member.service.business_service.event.dto;
 
-import com.yanoos.member.entity.member.Member;
+import com.yanoos.global.entity.member.Member;
 import lombok.*;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.yanoos.member.entity.board;
+package com.yanoos.global.entity.board;
 
 import jakarta.persistence.*;
 

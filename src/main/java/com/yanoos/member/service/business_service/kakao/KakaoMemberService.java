@@ -1,10 +1,10 @@
 package com.yanoos.member.service.business_service.kakao;
 
 import com.yanoos.member.controller.dto.KakaoUser;
-import com.yanoos.member.entity.member.Member;
-import com.yanoos.member.entity.member.MemberOAuth;
-import com.yanoos.member.entity.member.MemberOAuthKakao;
-import com.yanoos.member.entity.member.MemberRole;
+import com.yanoos.global.entity.member.Member;
+import com.yanoos.global.entity.member.MemberOAuth;
+import com.yanoos.global.entity.member.MemberOAuthKakao;
+import com.yanoos.global.entity.member.MemberRole;
 import com.yanoos.member.repository.memberOAuthKakao.MemberOAuthKakaoRepository;
 import com.yanoos.member.repository.member_OAuth.MemberOAuthRepository;
 import com.yanoos.member.repository.member.MemberRepository;
