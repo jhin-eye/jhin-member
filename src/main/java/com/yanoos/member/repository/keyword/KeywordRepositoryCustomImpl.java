@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import java.util.List;
 import java.util.stream.Collectors;
 import static com.yanoos.global.entity.member.QKeyword.keyword1;
-import static com.yanoos.global.entity.member.QMapMemberKeyword.mapMemberKeyword;
 
 @RequiredArgsConstructor
 public class KeywordRepositoryCustomImpl implements KeywordRepositoryCustom {

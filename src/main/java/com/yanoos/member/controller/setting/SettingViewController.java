@@ -1,5 +1,7 @@
 package com.yanoos.member.controller.setting;
 
+import com.yanoos.global.entity.member.Keyword;
+import com.yanoos.global.entity.member.Member;
 import com.yanoos.global.exception.BusinessException;
 import com.yanoos.global.exception.code.MemberErrorCode;
 import com.yanoos.global.jwt.TokenType;
@@ -9,6 +11,7 @@ import com.yanoos.member.service.business_service.keyword.KeywordBusinessService
 import com.yanoos.member.service.business_service.member.MemberBusinessService;
 import com.yanoos.member.controller.dto.AsideMenu;
 import com.yanoos.member.controller.member.GenerateTelegramUuidOut;
+import com.yanoos.member.service.entity_service.member.MemberEntityService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -31,11 +34,11 @@ import java.util.List;
 @Slf4j
 @RequestMapping("/api/view/settings")
 public class SettingViewController {
+    private final MemberEntityService memberEntityService;
     @Value("${kakao.client-id}")
     private String KAKAO_API_KEY;
     @Value("${kakao.logout-redirect-uri}")
     private String KAKAO_LOGOUT_REDIRECT_URI;
-
 
 
     private final AuthUtil authUtil;
@@ -85,24 +88,21 @@ public class SettingViewController {
 
     @GetMapping("/keyword")
     public String getKeywordSettings(Model model, RedirectAttributes redirectAttributes) {
-        List<String> mapMemberKeywords = new ArrayList<>();
-        try {
-            mapMemberKeywords = keywordBusinessService.getKeywordsByMemberId(authUtil.getMemberId());
-        } catch (BusinessException e) {
-            if (e.getErrorCode().equals(MemberErrorCode.TELEGRAM_UUID_NOT_FOUND)) {
-                redirectAttributes.addFlashAttribute("alert", "먼저 텔레그램 연동을 진행하세요");
-                return "redirect:/api/view/settings/telegram";
-            } else {
-                throw e;
-            }
+        Long memberId = authUtil.getMemberId();
+        Member member = memberBusinessService.getMemberById(memberId);
+        List<String> keywords = member.getKeywords().stream().map(Keyword::getKeyword).toList();
+
+
+        if (member.getMapMemberTelegramUsers().isEmpty()){
+            redirectAttributes.addFlashAttribute("alert", "먼저 텔레그램 연동을 진행하세요");
+            return "redirect:/api/view/settings/telegram";
         }
         model.addAttribute("asideMenus", getAsideMenus());
-        model.addAttribute("keywords", mapMemberKeywords);
+        model.addAttribute("keywords", keywords);
         model.addAttribute("title", "키워드 설정");
         return "setting/keywordSetting";
     }
-
-    private List<AsideMenu> getAsideMenus() {
+    private List<AsideMenu> getAsideMenus () {
         return new ArrayList<>(List.of(new AsideMenu("keywords", "/api/view/settings/keyword"),
                 new AsideMenu("telegram", "/api/view/settings/telegram")));
     }

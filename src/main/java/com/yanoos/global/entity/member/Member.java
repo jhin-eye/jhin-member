@@ -73,4 +73,8 @@ public class Member {
     public void addMapMemberPost(MapMemberPost mapMemberPost) {
         this.mapMemberPosts.add(mapMemberPost);
     }
+
+    public void registerKeyword(Keyword keyword) {
+        this.keywords.add(keyword);
+    }
 }

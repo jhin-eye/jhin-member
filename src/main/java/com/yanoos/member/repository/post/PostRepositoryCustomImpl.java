@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-import static com.yanoos.member.entity.QMember.member;
 
 
 @Repository
