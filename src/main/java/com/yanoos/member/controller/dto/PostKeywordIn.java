@@ -11,4 +11,5 @@ import lombok.NoArgsConstructor;
 @Builder
 public class PostKeywordIn {
     private String keyword;
+    private Long boardTypeId;
 }

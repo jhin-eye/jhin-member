@@ -17,6 +17,7 @@
         <h1>Setting</h1>
         <form id="keywordForm" th:action="@{/api/view/keyword}" method="post">
             <input type="text" id="keyword" name="keyword" placeholder="Enter keyword" required/>
+            <input type="hidden" id="boardTypeId" name="boardTypeId" value="1" readonly/>
             <button type="submit">Register</button>
         </form>
 

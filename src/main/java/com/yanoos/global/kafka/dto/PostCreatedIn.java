@@ -13,6 +13,8 @@ public class PostCreatedIn {
     private ValPostCreatedIn value;
     @JsonProperty("eventId")
     private Long eventId;
+    @JsonProperty("parentEventId")
+    private Long parentEventId;
     @JsonProperty("eventType")
     private String eventType;
 }

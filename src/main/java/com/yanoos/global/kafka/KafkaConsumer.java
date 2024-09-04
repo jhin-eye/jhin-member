@@ -31,24 +31,24 @@ public class KafkaConsumer {
      * @param message
      * @throws JsonProcessingException
      */
-    // @KafkaListener(topics = "POST_CREATED", groupId = "${spring.kafka.consumer.group-id}")
+    @KafkaListener(topics = "NEW_POST", groupId = "${spring.kafka.consumer.group-id}")
     public void consume(String message) throws JsonProcessingException {
-        // log.info("Consumed message: {}", message);
-        // ObjectMapper objectMapper = new ObjectMapper();
-        // PostCreatedIn postCreatedIn = objectMapper.readValue(message, PostCreatedIn.class);
-        // OutBoxFindPostContainingKeywordsIn outBoxFindPostContainingKeywordsIn = memberBusinessService.mapMembersWithPost(postCreatedIn);//멤버 포스트 매핑
-        // outBoxFindPostContainingKeywordsIn.setParentEventId(postCreatedIn.getEventId());
-        //
-        // eventBusinessService.outBoxFindKeywordPost(outBoxFindPostContainingKeywordsIn);
-        // log.info("consume finish");
+        log.info("Consumed message: {}", message);
+        ObjectMapper objectMapper = new ObjectMapper();
+        PostCreatedIn postCreatedIn = objectMapper.readValue(message, PostCreatedIn.class);
+        OutBoxFindPostContainingKeywordsIn outBoxFindPostContainingKeywordsIn = memberBusinessService.findMembersByPostTitle(postCreatedIn);//멤버 포스트 매핑
+        outBoxFindPostContainingKeywordsIn.setParentEventId(postCreatedIn.getEventId());
+
+        eventBusinessService.outBoxFindKeywordPost(outBoxFindPostContainingKeywordsIn);
+        log.info("consume finish");
     }
 
-    private OutBoxFindPostContainingKeywordsIn createOutBoxFindPostContainingKeywords(List<Member> members, Post post) {
-        return OutBoxFindPostContainingKeywordsIn.builder()
-                .members(members)
-                .postId(post.getId())
-                .build();
-    }
+    // private OutBoxFindPostContainingKeywordsIn createOutBoxFindPostContainingKeywords(List<Member> members, Post post) {
+    //     return OutBoxFindPostContainingKeywordsIn.builder()
+    //             .members(members)
+    //             .postId(post.getId())
+    //             .build();
+    // }
 
 
 }

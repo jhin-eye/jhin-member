@@ -26,8 +26,8 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class MemberBusinessService {
     private final MemberEntityService memberEntityService;
+    private final MemberBusinessService memberBusinessService;
     private final KeywordEntityService keywordEntityService;
-    private final MapMemberPostEntityService mapMemberPostEntityService;
     private final PostEntityService postEntityService;
     /**
      * 텔레그램 UUID를 생성한다.
@@ -45,22 +45,19 @@ public class MemberBusinessService {
                 .build();
     }
 
-    //
-    // /**
-    //  * postTitle에 포함된 키워드를 모니터하는 회원 목록을 조회한다.
-    //  *
-    //  * @param postTitle
-    //  * @return
-    //  */
-    // public List<Member> findMembersByPostTitle(String postTitle) {
-    //     //postTitle에 포함된 키워드 목록 작성
-    //     List<Keyword> keywords = keywordEntityService.getKeywordsInPostTitle(postTitle);
-    //    //해당 키워드를 모니터하는 회원 목록 작성
-    //     List<MapMemberKeyword> mapMemberKeywords = mapMemberKeywordEntityService.getMapMemberKeywordsByKeywordIds(keywords.stream().map(Keyword::getId).toList());
-    //     List<Member> members = mapMemberKeywords.stream().map(MapMemberKeyword::getMember).toList();
-    //     return members.stream().distinct().toList();
-    // }
-    //
+
+    /**
+     * postTitle에 포함된 키워드를 모니터하는 회원 목록을 조회한다.
+     *
+     * @param postTitle
+     * @return
+     */
+    public List<Member> findMembersByPostTitle(String postTitle) {
+       //해당 키워드를 모니터하는 회원 목록 작성
+        List<Member> members = memberEntityService.getAllMembers();
+        return members.stream().distinct().toList();
+    }
+
     public Member getMemberById(Long memberId) {
         Member member = memberEntityService.getMemberByMemberId(memberId);
         Hibernate.initialize(member.getKeywords());

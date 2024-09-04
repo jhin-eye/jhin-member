@@ -9,6 +9,7 @@ import com.yanoos.member.controller.dto.PostKeywordIn;
 import com.yanoos.member.controller.dto.PostKeywordOut;
 import com.yanoos.global.entity.member.Keyword;
 import com.yanoos.global.entity.member.Member;
+import com.yanoos.member.service.entity_service.board_type.BoardTypeEntityService;
 import com.yanoos.member.service.entity_service.keyword.KeywordEntityService;
 import com.yanoos.member.service.entity_service.map_member_keyword.dto.CreateMapMemberKeywordIn;
 import com.yanoos.member.service.entity_service.member.MemberEntityService;
@@ -26,9 +27,9 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class KeywordBusinessService {
     private final KeywordEntityService keywordEntityService;
-    // private final MapMemberKeywordEntityService mapMemberKeywordEntityService;
     private final MemberEntityService memberEntityService;
     private final AuthUtil authUtil;
+    private final BoardTypeEntityService boardTypeEntityService;
     // /**
     //  * 키워드 등록 및 등록 멤버에 키워드 매핑
     //  *
@@ -38,19 +39,15 @@ public class KeywordBusinessService {
     @Transactional
     public PostKeywordOut postKeyword(PostKeywordIn postKeywordIn) {
         Long memberId = authUtil.getMemberId();
-
+        BoardType boardType = boardTypeEntityService.getById(postKeywordIn.getBoardTypeId());
         Member member = memberEntityService.getMemberByMemberId(memberId);
         Keyword keyword = Keyword.builder()
-                .boardType()
+                .boardType(boardType)
                 .member(member)
                 .keyword(postKeywordIn.getKeyword())
-                .build());
+                .build();
         member.registerKeyword(keyword);
 
-        MapMemberKeyword mapMemberKeyword = mapMemberKeywordEntityService.createMapMemberKeyword(CreateMapMemberKeywordIn.builder()
-                .keyword(keyword)
-                .member(member)
-                .build());
 
         return PostKeywordOut.builder()
                 .isSuccess(true)

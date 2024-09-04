@@ -13,6 +13,7 @@ create table board_type(
 );
  */
 @Entity
+@Table(name = "board_type")
 public class BoardType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
