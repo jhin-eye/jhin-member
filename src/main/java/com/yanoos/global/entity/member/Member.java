@@ -38,7 +38,7 @@ public class Member {
     private UUID telegramAuthenticationUuid;
 
     @Column(name="telegram_authentication_uuid_created_at")
-    private LocalDateTime telegramUuidCreatedAt;
+    private Long telegramUuidCreatedAt;
 
     @Column(name="is_approved", nullable = false)
     private boolean isApproved;
@@ -57,7 +57,8 @@ public class Member {
 
     public void generateTelegramUuid(UUID uuid) {
         this.telegramAuthenticationUuid = uuid;
-        this.telegramUuidCreatedAt = LocalDateTime.now();
+        //epoch 초
+        this.telegramUuidCreatedAt =System.currentTimeMillis();
     }
 
 

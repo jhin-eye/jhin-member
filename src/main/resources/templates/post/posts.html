@@ -33,8 +33,8 @@
                     <a th:href="@{{url}(url=${mapMemberPost.getPostOut().getPostUrl()})}"
                        th:text="${mapMemberPost.getPostOut().getPostTitle()}"></a>
                 </td>
-                <td th:text="${mapMemberPost.getPostOut().getBoardNameKor()}"></td>
-                <td th:text="${mapMemberPost.getPostOut().getBoardNameEng()}"></td>
+                <td th:text="${mapMemberPost.getPostOut().getBoard().getNameKor()}"></td>
+                <td th:text="${mapMemberPost.getPostOut().getBoard().getNameEng()}"></td>
                 <td>
                     <form th:action="@{/api/view/posts/{mapMemberPostId}/checked(mapMemberPostId=${mapMemberPost.getMapMemberPostId()})}" th:method="post">
                         <input type="hidden" name="mapMemberPostId" th:value="${mapMemberPost.getMapMemberPostId()}"/>

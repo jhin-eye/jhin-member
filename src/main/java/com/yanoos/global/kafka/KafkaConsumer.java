@@ -4,10 +4,9 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yanoos.global.kafka.dto.PostCreatedIn;
 import com.yanoos.member.service.business_service.event.EventBusinessService;
-import com.yanoos.member.service.business_service.event.dto.OutBoxFindPostContainingKeywordsIn;
+import com.yanoos.member.service.business_service.event.dto.OutBoxFindKeywordPostIn;
 import com.yanoos.member.service.business_service.member.MemberBusinessService;
 import com.yanoos.global.entity.member.Member;
-import com.yanoos.global.entity.board.Post;
 import com.yanoos.member.service.entity_service.post.PostEntityService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -15,6 +14,7 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 @Slf4j
 @Service
@@ -36,10 +36,13 @@ public class KafkaConsumer {
         log.info("Consumed message: {}", message);
         ObjectMapper objectMapper = new ObjectMapper();
         PostCreatedIn postCreatedIn = objectMapper.readValue(message, PostCreatedIn.class);
-        OutBoxFindPostContainingKeywordsIn outBoxFindPostContainingKeywordsIn = memberBusinessService.findMembersByPostTitle(postCreatedIn);//멤버 포스트 매핑
-        outBoxFindPostContainingKeywordsIn.setParentEventId(postCreatedIn.getEventId());
 
-        eventBusinessService.outBoxFindKeywordPost(outBoxFindPostContainingKeywordsIn);
+        //post memeber mapping
+        Map<Member, List<String>> memberListMap = memberBusinessService.mapMembersWithPost(postCreatedIn);
+        //alert 필요한 member들과 그들의 일치 키워드 제공
+        OutBoxFindKeywordPostIn outBoxFindKeywordPostIn = OutBoxFindKeywordPostIn.from(memberListMap, postCreatedIn);
+
+        eventBusinessService.outBoxFindKeywordPost(outBoxFindKeywordPostIn);
         log.info("consume finish");
     }
 

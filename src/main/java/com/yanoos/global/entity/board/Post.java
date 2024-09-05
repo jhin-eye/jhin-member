@@ -6,7 +6,6 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +35,7 @@ public class Post {
     private String content;
 
     @Column(name = "post_write_date")
-    private LocalDateTime writeDate;
+    private Long writeDate;
 
     @Column(name = "post_department", nullable = false, length = 255)
     private String department;
@@ -45,10 +44,10 @@ public class Post {
     private String url;
 
     @Column(name = "monitor_time", nullable = false)
-    private LocalDateTime monitorTime;
+    private Long monitorTime;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<MapMemberPost> mapMemberPost = new ArrayList<>();
+    private List<MapMemberPost> mapMemberPosts = new ArrayList<>();
 
     public PostOut toDto(){
         return PostOut.builder()
@@ -64,6 +63,6 @@ public class Post {
     }
 
     public void addMapMemberPost(MapMemberPost mapMemberPost) {
-        this.mapMemberPost.add(mapMemberPost);
+        this.mapMemberPosts.add(mapMemberPost);
     }
 }

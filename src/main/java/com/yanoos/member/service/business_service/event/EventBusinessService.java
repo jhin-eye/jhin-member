@@ -2,7 +2,7 @@ package com.yanoos.member.service.business_service.event;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import com.yanoos.member.service.business_service.event.dto.OutBoxFindPostContainingKeywordsIn;
+import com.yanoos.member.service.business_service.event.dto.OutBoxFindKeywordPostIn;
 import com.yanoos.global.entity.member.Member;
 import com.yanoos.global.entity.event.Event;
 import com.yanoos.global.entity.event.EventType;
@@ -25,7 +25,7 @@ public class EventBusinessService {
      * @param outBoxFindKeywordPostIn
      */
     @Transactional
-    public void outBoxFindKeywordPost(OutBoxFindPostContainingKeywordsIn outBoxFindKeywordPostIn) {
+    public void outBoxFindKeywordPost(OutBoxFindKeywordPostIn outBoxFindKeywordPostIn) {
         for(Member member : outBoxFindKeywordPostIn.getMembers()) {
             ObjectMapper objectMapper = new ObjectMapper();
             ObjectNode jsonObject = objectMapper.createObjectNode();
@@ -33,9 +33,12 @@ public class EventBusinessService {
             jsonObject.put("postId", outBoxFindKeywordPostIn.getPostId());
 
             Event event = Event.builder()
+                    .parentEventId(outBoxFindKeywordPostIn.getParentEventId())
                     .eventType(EventType.FIND_KEYWORD_POST.name())
                     .eventData(jsonObject.toString())
                     .published(false)
+                    .createdAt(System.currentTimeMillis())
+                    .tryCount(0L)
                     .build();
             eventEntityService.save(event);
         }

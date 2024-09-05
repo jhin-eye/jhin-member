@@ -21,9 +21,8 @@ public class Event {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "parent_event_id", nullable = false)
-    private Event parentEventId;
+    @Column(name = "parent_event_id", nullable = true)
+    private Long parentEventId;
 
     @Column(name = "event_data", columnDefinition = "json", nullable = false)
     private String eventData;
@@ -35,10 +34,11 @@ public class Event {
     private String eventType;
 
     @Column(name = "created_at", nullable = false)
-    private LocalDateTime createdAt;
-
+    private Long createdAt;
+    @Column(name="try_count", nullable = false)
+    private Long tryCount;
     @Column(name = "published_at")
-    private LocalDateTime publishedAt;
+    private Long publishedAt;
 
     public void done() {
         this.published =true;
