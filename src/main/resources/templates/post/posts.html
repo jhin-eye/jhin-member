@@ -28,9 +28,9 @@
             <tbody>
             <!-- Thymeleaf를 사용하여 서버에서 게시글 데이터를 반복 렌더링 -->
             <tr th:each="mapMemberPost : ${mapMemberPosts}">
-                <td th:text="${mapMemberPost.getMapMemberPostId()}"></td>
+                <td th:text="${mapMemberPost.getPostOut().getPostId()}"></td>
                 <td>
-                    <a th:href="@{{url}(url=${mapMemberPost.getPostOut().getPostUrl()})}"
+                    <a th:href="@{/api/view/posts/{postId}/detail(postId=${mapMemberPost.getPostOut().getPostId()})}"
                        th:text="${mapMemberPost.getPostOut().getPostTitle()}"></a>
                 </td>
                 <td th:text="${mapMemberPost.getPostOut().getBoard().getNameKor()}"></td>
