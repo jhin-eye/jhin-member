@@ -11,6 +11,7 @@ import com.yanoos.member.service.entity_service.post.PostEntityService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.support.Acknowledgment;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -44,6 +45,7 @@ public class KafkaConsumer {
 
         eventBusinessService.outBoxFindKeywordPost(outBoxFindKeywordPostIn);
         log.info("consume finish");
+        // ack.acknowledge();
     }
 
     // private OutBoxFindPostContainingKeywordsIn createOutBoxFindPostContainingKeywords(List<Member> members, Post post) {

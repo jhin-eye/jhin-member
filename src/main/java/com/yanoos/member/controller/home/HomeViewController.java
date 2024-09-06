@@ -27,6 +27,7 @@ public class HomeViewController {
             return "redirect:/api/view/settings/keyword";
         }catch (Exception e){
             kakaoLoginService.setLoginUrlEnvironment(model);
+            log.info("model properties are {}",model.asMap());
             return "index";
         }
     }

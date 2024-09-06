@@ -30,7 +30,9 @@ spring:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
     consumer:
-      group-id: test2
+      group-id: new_post
+      auto-offset-reset: earliest
+#      enable-auto-commit: false  # 자동 오프셋 커밋을 끔
 
 kakao:
   host-name: KAKAO

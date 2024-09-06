@@ -1,5 +1,6 @@
 package com.yanoos.member.controller.post;
 
+import com.yanoos.global.entity.board.Post;
 import com.yanoos.global.util.AuthUtil;
 import com.yanoos.member.service.business_service.post.PostBusinessService;
 import com.yanoos.member.controller.dto.AsideMenu;
@@ -32,6 +33,12 @@ public class PostViewController {
         model.addAttribute("title",TITLE);
         model.addAttribute("mapMemberPosts",mapMemberPosts.getMapMemberPostOuts());
         return "post/posts";
+    }
+    @GetMapping("/{postId}/detail")
+    public String getPostDetail(@PathVariable("postId") Long postId, Model model){
+        Post post = postBusinessService.getPostByPostId(postId);
+        model.addAttribute("content",post.getContent());
+        return "post/post_detail";
     }
 
     @PostMapping("/{mapMemberPostId}/checked")
