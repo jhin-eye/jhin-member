@@ -22,5 +22,6 @@ public class PostOut {
     private String postDepartment;     // post_department에 대응
     private String postUrl;            // post_url에 대응
     private Long monitorTime; // monitor_time에 대응
+    private String siteUrl;            // site_url에 대응
 
 }

@@ -21,4 +21,5 @@ public class BoardOut {
     private String url;
 
     private BoardType type;
+    private String siteUrl;
 }

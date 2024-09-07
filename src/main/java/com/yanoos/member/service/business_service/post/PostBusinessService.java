@@ -12,6 +12,7 @@ import com.yanoos.member.service.entity_service.member.MemberEntityService;
 import com.yanoos.member.service.entity_service.post.PostEntityService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.hibernate.Hibernate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
@@ -28,6 +29,7 @@ public class PostBusinessService {
     public GetPostsOut getMapMemberPostsByMemberId(Long memberId){
         Member member = memberEntityService.getMemberByMemberId(memberId);
         List<MapMemberPost> mapMemberPosts = mapMemberPostEntityService.getMapMemberPostsByMember(member);
+
         List<MapMemberPostOut> memberPostOuts = mapMemberPosts.stream().map(MapMemberPost::toDto).toList();
         return GetPostsOut.builder()
                 .mapMemberPostOuts(memberPostOuts)
