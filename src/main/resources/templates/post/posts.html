@@ -20,7 +20,6 @@
                 <th>번호</th>
                 <th>제목</th>
                 <th>한국게시판</th>
-                <th>영문게시판</th>
                 <th>체크여부</th>
                 <th>포함키워드</th>
             </tr>
@@ -39,7 +38,6 @@
 
 
                 </td>
-                <td th:text="${mapMemberPost.getPostOut().getBoard().getNameEng()}"></td>
                 <td>
                     <form th:action="@{/api/view/posts/{mapMemberPostId}/checked(mapMemberPostId=${mapMemberPost.getMapMemberPostId()})}" th:method="post">
                         <input type="hidden" name="mapMemberPostId" th:value="${mapMemberPost.getMapMemberPostId()}"/>

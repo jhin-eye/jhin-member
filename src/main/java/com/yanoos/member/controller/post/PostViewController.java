@@ -38,6 +38,7 @@ public class PostViewController {
     public String getPostDetail(@PathVariable("postId") Long postId, Model model){
         Post post = postBusinessService.getPostByPostId(postId);
         model.addAttribute("content",post.getContent());
+
         return "post/post_detail";
     }
 
