@@ -33,6 +33,9 @@ public class KakaoMemberService {
     @Transactional
     public MemberOAuthKakao joinKakaoMember(KakaoUser kakaoUser) {
         String kakaoUserNickname = kakaoUser.getKakaoAccount().getProfile().getNickname();
+        if(kakaoUserNickname == null){
+            kakaoUserNickname = "닉네임없음";
+        }
         String kakaoUserEmail = kakaoUser.getKakaoAccount().getEmail();
 
         Member member = Member.builder()
