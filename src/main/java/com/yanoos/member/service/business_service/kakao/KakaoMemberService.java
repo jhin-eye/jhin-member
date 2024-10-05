@@ -32,11 +32,20 @@ public class KakaoMemberService {
 
     @Transactional
     public MemberOAuthKakao joinKakaoMember(KakaoUser kakaoUser) {
-        String kakaoUserNickname = kakaoUser.getKakaoAccount().getProfile().getNickname();
-        if(kakaoUserNickname == null){
-            kakaoUserNickname = "닉네임없음";
+        String kakaoUserNickname;
+        String kakaoUserEmail;
+        try{
+            kakaoUserNickname = kakaoUser.getKakaoAccount().getProfile().getNickname();
+        }catch (NullPointerException e){
+            kakaoUserNickname = "카카오유저";
         }
-        String kakaoUserEmail = kakaoUser.getKakaoAccount().getEmail();
+        try{
+            kakaoUserEmail = kakaoUser.getKakaoAccount().getEmail();
+        }catch (NullPointerException e){
+            //임의의해시값@kakao.user
+            kakaoUserEmail = kakaoUser.getId() + "@kakao.temp";
+        }
+
 
         Member member = Member.builder()
                 .email(kakaoUserEmail)

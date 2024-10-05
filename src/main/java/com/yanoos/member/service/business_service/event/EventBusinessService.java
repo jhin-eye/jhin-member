@@ -11,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import java.time.ZonedDateTime;
+import java.time.ZoneId;
 
 @Service
 @Slf4j
@@ -37,7 +39,7 @@ public class EventBusinessService {
                     .eventType(EventType.FIND_KEYWORD_POST.name())
                     .eventData(jsonObject.toString())
                     .published(false)
-                    .createdAt(System.currentTimeMillis())
+                    .createdAt(ZonedDateTime.now(ZoneId.of("Asia/Seoul")))
                     .tryCount(0L)
                     .build();
             eventEntityService.save(event);
