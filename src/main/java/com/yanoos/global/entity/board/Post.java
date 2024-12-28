@@ -50,6 +50,14 @@ public class Post {
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<MapMemberPost> mapMemberPosts = new ArrayList<>();
 
+    @Column(name = "method", nullable = false, columnDefinition = "text")
+    private String method;
+    @Column(name = "endpoint", nullable = false, columnDefinition = "text")
+    private String endpoint;
+    @Column(name = "parameters", nullable = false, columnDefinition = "text")
+    private String parameters;
+
+
     public PostOut toDto(){
         return PostOut.builder()
                 .postId(this.id)

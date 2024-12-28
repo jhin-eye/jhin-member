@@ -1,7 +1,9 @@
 package com.yanoos.member.controller.post;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.yanoos.global.entity.board.Post;
 import com.yanoos.global.util.AuthUtil;
+import com.yanoos.member.controller.dto.GetPostDetailSiteOut;
 import com.yanoos.member.service.business_service.post.PostBusinessService;
 import com.yanoos.member.controller.dto.AsideMenu;
 import com.yanoos.member.controller.dto.GetPostsOut;
@@ -40,6 +42,16 @@ public class PostViewController {
         model.addAttribute("content",post.getContent());
 
         return "post/post_detail";
+    }
+
+    @GetMapping("/{postId}/site")
+    public String getPostDetailSite(@PathVariable("postId") Long postId, Model model) throws JsonProcessingException {
+        Post post = postBusinessService.getPostByPostId(postId);
+        GetPostDetailSiteOut postDetailSiteOut = new GetPostDetailSiteOut().from(post);
+        model.addAttribute("post",postDetailSiteOut);
+
+
+        return "post/move_detail_site";
     }
 
     @PostMapping("/{mapMemberPostId}/checked")
