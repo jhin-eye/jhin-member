@@ -12,7 +12,8 @@ import com.yanoos.member.service.entity_service.member.MemberEntityService;
 import com.yanoos.member.service.entity_service.post.PostEntityService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.Hibernate;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
@@ -26,13 +27,18 @@ public class PostBusinessService {
     private final MemberEntityService memberEntityService;
     private final PostEntityService postEntityService;
 
-    public GetPostsOut getMapMemberPostsByMemberId(Long memberId){
+    public GetPostsOut getMapMemberPostsByMemberId(Long memberId, Pageable pageable){
         Member member = memberEntityService.getMemberByMemberId(memberId);
-        List<MapMemberPost> mapMemberPosts = mapMemberPostEntityService.getMapMemberPostsByMember(member);
+        Page<MapMemberPost> mapMemberPosts = mapMemberPostEntityService.getMapMemberPostsByMember(member, pageable);
 
-        List<MapMemberPostOut> memberPostOuts = mapMemberPosts.stream().map(MapMemberPost::toDto).toList();
+        List<MapMemberPostOut> memberPostOuts = mapMemberPosts.getContent().stream()
+                .map(MapMemberPost::toDto)
+                .toList();
         return GetPostsOut.builder()
                 .mapMemberPostOuts(memberPostOuts)
+                .totalPages(mapMemberPosts.getTotalPages())
+                .currentPage(mapMemberPosts.getNumber())
+                .totalElements(mapMemberPosts.getTotalElements())
                 .build();
     }
 

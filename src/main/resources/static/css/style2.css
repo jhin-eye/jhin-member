@@ -189,3 +189,36 @@ aside nav a:hover {
 .logout-link a:hover {
     color: black; /* 마우스 오버 시 색상을 어두운 빨간색으로 변경 */
 }
+.pagination ul {
+    list-style: none; /* 기본 목록 스타일 제거 */
+    display: flex; /* 가로 정렬 */
+    justify-content: center; /* 가운데 정렬 */
+    padding: 0;
+    margin: 20px 0;
+}
+
+.pagination ul li {
+    margin: 0 5px; /* 버튼 간 간격 */
+}
+
+.pagination ul li a {
+    text-decoration: none;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    color: #000;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.pagination ul li a.active {
+    background-color: #007bff;
+    color: #fff;
+    border-color: #007bff;
+}
+
+.pagination ul li a:hover {
+    background-color: #f0f0f0;
+    color: #007bff;
+}
+
+

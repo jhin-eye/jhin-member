@@ -50,7 +50,29 @@
             </tr>
             </tbody>
         </table>
-    </div>
+        <div class="pagination">
+            <ul>
+                <!-- 이전 버튼 -->
+                <li th:if="${currentPage > 0}">
+                    <a th:href="@{/api/view/posts(page=${currentPage - 1}, size=10)}">이전</a>
+                </li>
+
+                <!-- 페이지 번호 -->
+                <li th:each="i : ${#numbers.sequence(
+            currentPage / 10 * 10,
+            (currentPage / 10 * 10 + 9) < totalPages ? (currentPage / 10 * 10 + 9) : (totalPages - 1)
+        )}">
+                    <a th:href="@{/api/view/posts(page=${i}, size=10)}"
+                       th:classappend="${i == currentPage} ? 'active'"
+                       th:text="${i + 1}"></a>
+                </li>
+
+                <!-- 다음 버튼 -->
+                <li th:if="${currentPage < totalPages - 1}">
+                    <a th:href="@{/api/view/posts(page=${currentPage + 1}, size=10)}">다음</a>
+                </li>
+            </ul>
+        </div>
 
 </div>
 

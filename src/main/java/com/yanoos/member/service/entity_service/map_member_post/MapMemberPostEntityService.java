@@ -6,6 +6,8 @@ import com.yanoos.global.entity.board.Post;
 import com.yanoos.member.repository.map_member_post.MapMemberPostRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,8 +20,8 @@ import java.util.List;
 public class MapMemberPostEntityService {
     private final MapMemberPostRepository mapMemberPostRepository;
 
-    public List<MapMemberPost> getMapMemberPostsByMember(Member member) {
-        return mapMemberPostRepository.findByMemberOrderByIdDesc(member);
+    public Page<MapMemberPost> getMapMemberPostsByMember(Member member, Pageable pageable) {
+        return mapMemberPostRepository.findByMemberOrderByIdDesc(member, pageable);
     }
 
     public List<MapMemberPost> getMapMemberPostsByPostId(Post post) {

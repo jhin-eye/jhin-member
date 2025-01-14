@@ -13,4 +13,8 @@ import java.util.List;
 @SuperBuilder
 public class GetPostsOut {
     private List<MapMemberPostOut> mapMemberPostOuts;
+    private int totalPages;
+    private int currentPage;
+    private long totalElements;
+
 }

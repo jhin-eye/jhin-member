@@ -9,12 +9,11 @@ import com.yanoos.member.controller.dto.AsideMenu;
 import com.yanoos.member.controller.dto.GetPostsOut;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,12 +27,19 @@ public class PostViewController {
     private final AuthUtil authUtil;
     private final String TITLE = "Posts";
     @GetMapping()
-    public String getPosts(Model model){
-        GetPostsOut mapMemberPosts = postBusinessService.getMapMemberPostsByMemberId(authUtil.getMemberId());
+    public String getPosts(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size,
+            Model model){
+        Pageable pageable = PageRequest.of(page, size);
+        GetPostsOut mapMemberPosts = postBusinessService.getMapMemberPostsByMemberId(authUtil.getMemberId(), pageable);
 
         model.addAttribute("asideMenus",getAsideMenus());
         model.addAttribute("title",TITLE);
         model.addAttribute("mapMemberPosts",mapMemberPosts.getMapMemberPostOuts());
+        model.addAttribute("currentPage", mapMemberPosts.getCurrentPage());
+        model.addAttribute("totalPages", mapMemberPosts.getTotalPages());
+        model.addAttribute("totalElements", mapMemberPosts.getTotalElements());
         return "post/posts";
     }
     @GetMapping("/{postId}/detail")
