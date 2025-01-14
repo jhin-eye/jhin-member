@@ -12,6 +12,7 @@
         <img th:src="@{/img/jhineye_logo.png}" alt="Site Logo"/>
     </div>
     <h2>로그인</h2>
+    <h2 th:if = "${error=='notApproved'}" style="color: red">관리자에게 계정 권한을 요청하세요</h2>
     <!-- 로그인 버튼 이미지 -->
     <a th:href="@{'https://kauth.kakao.com/oauth/authorize'(client_id=${clientId}, redirect_uri=${redirectUri}, response_type='code')}">
         <img th:src="@{/img/kakao_login_medium_wide.png}" alt="Kakao Login"/>
