@@ -45,6 +45,15 @@ public class KeywordViewController {
         PostKeywordOut postKeywordOut = keywordBusinessService.postKeyword(postKeywordIn);
         return "redirect:/api/view/settings/keyword";
     }
+    @DeleteMapping
+    public String deleteKeyword(@RequestParam("keywordId") Long keywordId){
+        Long memberId = authUtil.getMemberId();
+        keywordBusinessService.deleteKeyword(memberId,keywordId);
+        return "redirect:/api/view/settings/keyword";
+    }
+
+
+
 
     private void validatePostKeywordIn(PostKeywordIn postKeywordIn) {
         log.info("validatePostKeywordIn success!");

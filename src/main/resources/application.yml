@@ -6,6 +6,10 @@ spring:
     active: prod
   jackson:
     time-zone: UTC
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/test?serverTimezone=UTC

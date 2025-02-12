@@ -24,7 +24,12 @@
         <h2>Registered Keywords</h2>
         <ul>
             <li th:each="keyword : ${keywords}">
-                <span th:text="${keyword}">Keyword Name</span>
+                <span th:text="${keyword.keyword}">Keyword Name</span>
+                <form th:action="@{/api/view/keyword}" th:method="delete" style="display: inline;">
+<!--                    <input type="hidden" name="_method" value="DELETE"/>-->
+                    <input type="hidden" name="keywordId" th:value="${keyword.id}"/>
+                    <button type="submit" class="delete-btn">Delete</button>
+                </form>
             </li>
         </ul>
     </div>

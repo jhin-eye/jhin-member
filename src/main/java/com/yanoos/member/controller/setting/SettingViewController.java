@@ -90,7 +90,7 @@ public class SettingViewController {
     public String getKeywordSettings(Model model, RedirectAttributes redirectAttributes) {
         Long memberId = authUtil.getMemberId();
         Member member = memberBusinessService.getMemberById(memberId);
-        List<String> keywords = member.getKeywords().stream().map(Keyword::getKeyword).toList();
+        List<Keyword> keywords = member.getKeywords();
 
 
         if (member.getMapMemberTelegramUsers().isEmpty()){

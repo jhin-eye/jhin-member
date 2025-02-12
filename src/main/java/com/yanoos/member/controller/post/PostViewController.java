@@ -28,8 +28,8 @@ public class PostViewController {
     private final String TITLE = "Posts";
     @GetMapping()
     public String getPosts(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(defaultValue = "0", name = "page") int page,
+            @RequestParam(defaultValue = "10", name = "size") int size,
             Model model){
         Pageable pageable = PageRequest.of(page, size);
         GetPostsOut mapMemberPosts = postBusinessService.getMapMemberPostsByMemberId(authUtil.getMemberId(), pageable);

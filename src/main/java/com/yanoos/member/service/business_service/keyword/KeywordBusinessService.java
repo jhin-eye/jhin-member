@@ -2,6 +2,7 @@ package com.yanoos.member.service.business_service.keyword;
 
 import com.yanoos.global.entity.board.BoardType;
 import com.yanoos.global.exception.BusinessException;
+import com.yanoos.global.exception.code.KeywordErrorCode;
 import com.yanoos.global.exception.code.MemberErrorCode;
 import com.yanoos.global.util.AuthUtil;
 import com.yanoos.member.service.business_service.dto.CreateKeywordIn;
@@ -19,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 
 
 @Slf4j
@@ -52,6 +54,13 @@ public class KeywordBusinessService {
         return PostKeywordOut.builder()
                 .isSuccess(true)
                 .build();
+    }
+
+    @Transactional
+    public void deleteKeyword(Long memberId, Long keywordId) {
+        keywordEntityService.verifyKeywordOwnership(memberId, keywordId);
+
+        keywordEntityService.deleteKeyword(keywordId);
     }
     //
     // public List<String> getKeywordsByMemberId(long memberId) {
