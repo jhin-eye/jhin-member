@@ -39,6 +39,8 @@ public class SettingViewController {
     private String KAKAO_API_KEY;
     @Value("${kakao.logout-redirect-uri}")
     private String KAKAO_LOGOUT_REDIRECT_URI;
+    @Value("${telegram.bot.username}")
+    private String telegramBotUsername;
 
 
     private final AuthUtil authUtil;
@@ -82,6 +84,7 @@ public class SettingViewController {
         GenerateTelegramUuidOut generateTelegramUuidOut = memberBusinessService.generateTelegramUuid(authUtil.getMemberId());
         model.addAttribute("generateTelegramUuidOut", generateTelegramUuidOut);
         model.addAttribute("asideMenus", getAsideMenus());
+        model.addAttribute("telegramBotUsername", telegramBotUsername);
         return "setting/telegramSettingUUidGenerated";
     }
 
