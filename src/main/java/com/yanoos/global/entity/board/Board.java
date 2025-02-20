@@ -2,6 +2,9 @@ package com.yanoos.global.entity.board;
 
 import com.yanoos.member.controller.dto.BoardOut;
 import jakarta.persistence.*;
+import lombok.Getter;
+
+import java.time.ZonedDateTime;
 
 /*
 
@@ -17,6 +20,7 @@ create table board(
 );
  */
 @Entity
+@Getter
 public class Board {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,6 +42,10 @@ public class Board {
 
     @Column(name = "site_url", nullable = false, columnDefinition = "text")
     private String siteUrl;
+    @Column(name = "last_crawled_at")
+    private ZonedDateTime lastCrawledAt;
+    @Column(name = "previous_crawled_at")
+    private ZonedDateTime previousCrawledAt;
 
     public BoardOut toDto() {
         return BoardOut.builder()

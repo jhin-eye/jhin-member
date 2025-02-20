@@ -29,7 +29,7 @@
             <tr th:each="mapMemberPost : ${mapMemberPosts}">
                 <td th:text="${mapMemberPost.getPostOut().getPostId()}"></td>
                 <td>
-                    <a th:href="@{/api/view/posts/{postId}/detail(postId=${mapMemberPost.getPostOut().getPostId()})}"
+                    <a th:href="@{/api/view/posts/{postId}/site(postId=${mapMemberPost.getPostOut().getPostId()})}"
                        th:text="${mapMemberPost.getPostOut().getPostTitle()}"></a>
                 </td>
                 <td>
