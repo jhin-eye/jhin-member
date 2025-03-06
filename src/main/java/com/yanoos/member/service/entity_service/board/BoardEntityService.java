@@ -21,4 +21,8 @@ public class BoardEntityService {
     public List<Board> getAllBoards(Sort sort){
         return boardRepository.findAll(sort);
     }
+
+    public Board getBoardById(Long boardId) {
+        return boardRepository.findById(boardId).orElseThrow(() -> new IllegalArgumentException("Board not found"));
+    }
 }

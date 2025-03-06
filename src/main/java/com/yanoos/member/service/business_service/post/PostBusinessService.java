@@ -42,6 +42,7 @@ public class PostBusinessService {
                 .build();
     }
 
+
     @Transactional
     public void updateCheckedByMapMemberPostId(Long memberId, Long mapMemberPostId) {
         validationUpdateCheckedByMapMemberPostId(memberId, mapMemberPostId);

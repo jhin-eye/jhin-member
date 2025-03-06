@@ -25,7 +25,9 @@
             <tbody>
             <!-- Thymeleaf를 사용하여 서버에서 게시글 데이터를 반복 렌더링 -->
             <tr th:each="board : ${boards}">
-                <td th:text="${board.nameKor}"></td>
+                <td>
+                    <a th:text="${board.nameKor}" th:href="@{/api/view/posts/{boardId}/board(boardId=${board.id})}"></a>
+                </td>
                 <td>
                     <span th:if="${board.lastCrawledAt != null}"
                           th:text="${#temporals.format(board.lastCrawledAt.withZoneSameInstant(T(java.time.ZoneId).of('Asia/Seoul')), 'yyyy-MM-dd HH:mm')}"></span>

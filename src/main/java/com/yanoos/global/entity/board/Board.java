@@ -1,10 +1,13 @@
 package com.yanoos.global.entity.board;
 
+import com.yanoos.global.entity.member.MemberOAuth;
 import com.yanoos.member.controller.dto.BoardOut;
 import jakarta.persistence.*;
 import lombok.Getter;
 
 import java.time.ZonedDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 /*
 
@@ -46,6 +49,13 @@ public class Board {
     private ZonedDateTime lastCrawledAt;
     @Column(name = "previous_crawled_at")
     private ZonedDateTime previousCrawledAt;
+
+    @OneToMany(mappedBy = "board", cascade = CascadeType.ALL)
+    private List<Post> posts = new ArrayList<>();
+
+    @Column(name="page_size",nullable = false)
+    private int pageSize;
+
 
     public BoardOut toDto() {
         return BoardOut.builder()
