@@ -145,9 +145,10 @@ public class JwtTokenService {
         accessTokenCookie.setPath("/");
 //        accessTokenCookie.setHttpOnly(true);
         accessTokenCookie.setMaxAge(ACCESS_TOKEN_EXPIRATION_TIME);
-        response.addCookie(accessTokenCookie);
         accessTokenCookie.setHttpOnly(true);
         accessTokenCookie.setSecure(true); // HTTPS 환경이라면 필수
+        response.addCookie(accessTokenCookie);
+
 
         Cookie refreshTokenCookie = new Cookie(TokenType.REFRESH.name(),refreshToken);
         refreshTokenCookie.setPath("/");
