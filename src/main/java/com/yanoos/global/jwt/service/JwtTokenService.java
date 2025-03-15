@@ -85,10 +85,14 @@ public class JwtTokenService {
 
     public String getJwtFromRequest(HttpServletRequest request, TokenType tokenType){
         String bearerToken = request.getHeader(AUTHORIZATION_HEADER);
+        log.info("bearerToken = {}",bearerToken);
         if(bearerToken !=null && bearerToken.startsWith(tokenType.name())){
             return bearerToken.substring(tokenType.name().length()+1);
         }
         Cookie[] cookies = request.getCookies();
+        for(Cookie cookie: cookies){
+            log.info("cookie name = {}, cookie value = {}",cookie.getName(),cookie.getValue());
+        }
         if(cookies != null){
             for(Cookie cookie: cookies){
                 if(cookie.getName().equals(tokenType.name())){
