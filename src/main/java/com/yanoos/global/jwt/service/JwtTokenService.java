@@ -140,20 +140,20 @@ public class JwtTokenService {
     }
 
     public void setTokensOnCookie(HttpServletResponse response, String accessToken, String refreshToken){
-        //JWT 토큰을 쿠키에 설정
+        // JWT 토큰을 쿠키에 설정
         Cookie accessTokenCookie = new Cookie(TokenType.ACCESS.name(), accessToken);
         accessTokenCookie.setPath("/");
-//        accessTokenCookie.setHttpOnly(true);
         accessTokenCookie.setMaxAge(ACCESS_TOKEN_EXPIRATION_TIME);
         accessTokenCookie.setHttpOnly(true);
-        accessTokenCookie.setSecure(true); // HTTPS 환경이라면 필수
+        accessTokenCookie.setSecure(true); // HTTPS 환경이면 필수
         response.addCookie(accessTokenCookie);
 
-
-        Cookie refreshTokenCookie = new Cookie(TokenType.REFRESH.name(),refreshToken);
+        Cookie refreshTokenCookie = new Cookie(TokenType.REFRESH.name(), refreshToken);
         refreshTokenCookie.setPath("/");
-//        refreshTokenCookie.setHttpOnly(true);
         refreshTokenCookie.setMaxAge(REFRESH_TOKEN_EXPIRATION_TIME);
+        // 만약 refresh token도 보안상 HttpOnly, Secure 설정이 필요하면 추가할 수 있음
+        refreshTokenCookie.setHttpOnly(true);
+        refreshTokenCookie.setSecure(true);
         response.addCookie(refreshTokenCookie);
     }
 }
