@@ -48,6 +48,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
             log.info("인증인터셉터성공");
             return true;
         }catch (Exception e){
+            e.printStackTrace();
             log.error("인증 인터셉터 실패");
             response.sendRedirect("/");
             return false;
