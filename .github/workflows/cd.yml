@@ -28,6 +28,8 @@ jobs:
 
       - name: Update kubeconfig
         run: aws eks update-kubeconfig --region ap-northeast-2 --name jhin-eye
+      - name: Set image tag
+        run: echo "IMAGE_TAG=${GITHUB_REF_NAME##*/}" >> $GITHUB_ENV
 
       - name: Deploy member via Helm
         run: |
@@ -35,7 +37,7 @@ jobs:
             --namespace jhin-eye \
             --create-namespace \
             -f helm/values.yaml \
-            --set image.tag=${GITHUB_REF_NAME} \
+            --set image.tag=$IMAGE_TAG \
             --set secrets.postgresPassword=${{ secrets.POSTGRES_PASSWORD }} \
             --set secrets.jwtSecretKey=${{ secrets.JWT_SECRET_KEY }} \
             --set secrets.kakaoClientId=${{ secrets.KAKAO_CLIENT_ID }} \
