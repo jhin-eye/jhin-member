@@ -19,8 +19,8 @@ config:
   POSTGRES_DB_NAME: jhineye
   POSTGRES_DB_PORT: "5432"
   POSTGRES_USER: postgres
-  KAKAO_REDIRECT_URI: http://jhineye.store:8080/api/kakao/callback
-  KAKAO_LOGOUT_REDIRECT_URI: http://jhineye.store:8080/
+  KAKAO_REDIRECT_URI: http://jhineye.store/api/kakao/callback
+  KAKAO_LOGOUT_REDIRECT_URI: http://jhineye.store/
   KAFKA_BOOTSTRAP_SERVERS: kafka
   KAFKA_BOOTSTRAP_SERVERS_PORT: "9092"
 backend:
