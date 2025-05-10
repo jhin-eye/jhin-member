@@ -25,6 +25,6 @@ config:
 backend:
   ingress:
     enabled: true
-    host: member.jhineye.store
+    host: jhineye.store
   service:
     port: 8080
