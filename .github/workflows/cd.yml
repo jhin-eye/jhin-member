@@ -1,10 +1,10 @@
 name: Deploy Member to EKS
 
 on:
-  push:
-    tags:
-      - 'member-v*'
-
+  workflow_run:
+    workflows: ["CI Pipeline for member"]  # ✅ CI 이름과 일치해야 함
+    types:
+      - completed
 jobs:
   deploy:
     runs-on: ubuntu-latest
