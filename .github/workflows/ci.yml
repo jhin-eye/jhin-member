@@ -3,7 +3,7 @@ name: CI Pipeline for member
 on:
   push:
     tags:
-      - 'member-v*'
+      - 'v*'
 
 jobs:
   build_and_test:
