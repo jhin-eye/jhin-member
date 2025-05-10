@@ -2,9 +2,10 @@ name: Deploy Member to EKS
 
 on:
   workflow_run:
-    workflows: ["CI Pipeline for member"]  # ✅ CI 이름과 일치해야 함
+    workflows: ["CI Pipeline for member"]  # CI 워크플로 이름과 정확히 일치
     types:
       - completed
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -28,12 +29,13 @@ jobs:
 
       - name: Update kubeconfig
         run: aws eks update-kubeconfig --region ap-northeast-2 --name jhin-eye
-      - name: Set image tag
-        run: echo "IMAGE_TAG=${GITHUB_REF_NAME##*/}" >> $GITHUB_ENV
 
-      - name: Deploy member via Helm
+      - name: Extract image tag from Git ref
+        run: echo "IMAGE_TAG=${GITHUB_REF#refs/tags/}" >> $GITHUB_ENV
+
+      - name: Deploy jhineye-member via Helm
         run: |
-          helm upgrade --install member ./helm \
+          helm upgrade --install jhineye-member ./helm \
             --namespace jhin-eye \
             --create-namespace \
             -f helm/values.yaml \
