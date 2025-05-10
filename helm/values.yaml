@@ -1,0 +1,24 @@
+image:
+  repository: yanoo555/member
+  tag: "0.1.0"
+  pullPolicy: IfNotPresent
+replicaCount: 1
+containerPort: 8080
+
+
+nodeSelector:
+  eks.amazonaws.com/nodegroup: jhin-eye-nodes
+# values.yaml
+metrics:
+  enabled: true
+  port: 8081
+
+config:
+  SPRING_PROFILE_ACTIVE: prod
+  POSTGRES_DB_HOST: jhineye-postgres-postgresql.jhin-eye.svc.cluster.local
+  POSTGRES_DB_NAME: jhineye
+  POSTGRES_DB_PORT: "5432"
+  POSTGRES_USER: postgres
+  KAKAO_REDIRECT_URI: http://jhineye.store:8080/api/kakao/callback
+  KAKAO_LOGOUT_REDIRECT_URI: http://jhineye.store:8080/
+
