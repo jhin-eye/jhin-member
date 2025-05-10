@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: member-config
+  name: jhineye-member-config
 data:
   SPRING_PROFILE_ACTIVE: {{ .Values.config.SPRING_PROFILE_ACTIVE | quote }}
   POSTGRES_DB_HOST: {{ .Values.config.POSTGRES_DB_HOST | quote }}

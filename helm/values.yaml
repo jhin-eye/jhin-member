@@ -22,3 +22,9 @@ config:
   KAKAO_REDIRECT_URI: http://jhineye.store:8080/api/kakao/callback
   KAKAO_LOGOUT_REDIRECT_URI: http://jhineye.store:8080/
 
+backend:
+  ingress:
+    enabled: true
+    host: member.jhineye.store
+  service:
+    port: 8080

@@ -1,18 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: member
+  name: jhineye-member
   labels:
-    app: member
+    app: jhineye-member
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: member
+      app: jhineye-member
   template:
     metadata:
       labels:
-        app: member
+        app: jhineye-member
     spec:
       nodeSelector:
         {{- toYaml .Values.nodeSelector | nindent 8 }}
@@ -24,9 +24,9 @@ spec:
             - containerPort: {{ .Values.containerPort }}
           envFrom:
             - configMapRef:
-                name: member-config
+                name: jhineye-member-config
             - secretRef:
-                name: member-secret
+                name: jhineye-member-secret
           resources:
             requests:
               cpu: 200m

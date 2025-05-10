@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: jhineye-member
+  labels:
+    app: jhineye-member
+spec:
+  selector:
+    app: jhineye-member
+  ports:
+    - port: {{ .Values.backend.service.port }}
+      targetPort: {{ .Values.containerPort }}
