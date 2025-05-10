@@ -31,7 +31,7 @@ jobs:
 
       - name: Deploy member via Helm
         run: |
-          helm upgrade --install member ./member \
+          helm upgrade --install member ./helm \
             --namespace jhin-eye \
             --create-namespace \
             -f member/values.yaml \
