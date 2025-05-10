@@ -1,5 +1,5 @@
 image:
-  repository: yanoo555/member
+  repository: yanoos555/member
   tag: "0.1.0"
   pullPolicy: IfNotPresent
 replicaCount: 1
