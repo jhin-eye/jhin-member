@@ -5,8 +5,14 @@ metadata:
   name: jhineye-member-ingress
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /
+    cert-manager.io/cluster-issuer: letsencrypt-http01
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
 spec:
   ingressClassName: nginx
+  tls:
+    - hosts:
+        - jhineye.store
+      secretName: jhineye-store-tls  # cert-manager가 자동 생성
   rules:
     - host: {{ .Values.backend.ingress.host }}
       http:
