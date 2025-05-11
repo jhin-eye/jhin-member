@@ -21,7 +21,7 @@ config:
   POSTGRES_USER: postgres
   KAKAO_REDIRECT_URI: http://jhineye.store/api/kakao/callback
   KAKAO_LOGOUT_REDIRECT_URI: http://jhineye.store/
-  KAFKA_BOOTSTRAP_SERVERS: kafka
+  KAFKA_BOOTSTRAP_SERVERS: kafka-controller
   KAFKA_BOOTSTRAP_SERVERS_PORT: "9092"
 backend:
   ingress:
