@@ -19,20 +19,20 @@ public class WebConfig implements WebMvcConfigurer {
         //요청 uri 로깅용 인터셉터
         registry.addInterceptor(loggingInterceptor)
                 .order(1);
-
-        registry.addInterceptor(authenticationInterceptor)
-                .order(2)
-                .addPathPatterns("/api/**",
-                        "/test/**")
-                .excludePathPatterns(
-                        "/api/kakao/**",
-                        "/api/token/by/refresh");
-        registry.addInterceptor(authorizationInterceptor)
-                .order(3)
-                .addPathPatterns("/api/**")
-                .excludePathPatterns(
-                        "/api/kakao/**",
-                        "/api/token/by/refresh");
+        //
+        // registry.addInterceptor(authenticationInterceptor)
+        //         .order(2)
+        //         .addPathPatterns("/api/**",
+        //                 "/test/**")
+        //         .excludePathPatterns(
+        //                 "/api/kakao/**",
+        //                 "/api/token/by/refresh");
+        // registry.addInterceptor(authorizationInterceptor)
+        //         .order(3)
+        //         .addPathPatterns("/api/**")
+        //         .excludePathPatterns(
+        //                 "/api/kakao/**",
+        //                 "/api/token/by/refresh");
 
 
     }
